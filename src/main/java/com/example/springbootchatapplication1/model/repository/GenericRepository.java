@@ -1,14 +1,8 @@
 package com.example.springbootchatapplication1.model.repository;
 
 import com.example.springbootchatapplication1.model.entity.interfaces.IEntity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.PersistenceContextType;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +12,7 @@ import java.util.Optional;
 public abstract class GenericRepository<T extends IEntity> {
 
     @PersistenceContext(type = PersistenceContextType.TRANSACTION)
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     public abstract Class<T> getDomainClass();
 
@@ -39,6 +33,19 @@ public abstract class GenericRepository<T extends IEntity> {
     public Optional<T> findById(Long id) {
         T t = this.entityManager.find(this.getDomainClass(), id);
         return Optional.of(t);
+    }
+
+    public void update(Long id, Map<String, Object> updateParams) {
+        CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
+        CriteriaUpdate<T> criteriaUpdate = criteriaBuilder.createCriteriaUpdate(this.getDomainClass());
+        Root<T> root = criteriaUpdate.from(this.getDomainClass());
+        for (Map.Entry<String, Object> entry : updateParams.entrySet()) {
+            criteriaUpdate.set(entry.getKey(), entry.getValue());
+        }
+        criteriaUpdate.where(criteriaBuilder.equal(root.get("id"), id));
+
+        Query query = this.entityManager.createQuery(criteriaUpdate);
+        query.executeUpdate();
     }
 
     public Optional<T> find(Map<String, Object> queryParams) {

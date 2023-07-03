@@ -1,13 +1,17 @@
 package com.example.springbootchatapplication1.model.service;
 
 import com.example.springbootchatapplication1.model.dto.user.UserInput;
+import com.example.springbootchatapplication1.model.dto.user.UserLoginInput;
+import com.example.springbootchatapplication1.model.dto.user.UserLoginOut;
 import com.example.springbootchatapplication1.model.dto.user.UserOutput;
 import com.example.springbootchatapplication1.model.entity.UserAuthorityEntity;
 import com.example.springbootchatapplication1.model.entity.UserEntity;
 import com.example.springbootchatapplication1.model.repository.UserRepository;
+import com.example.springbootchatapplication1.utils.JWTService;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,16 +20,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-
     private UserRepository userRepository;
     private UserAuthorityService authorityService;
+    private JWTService jwtService;
     private ModelMapper modelMapper;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserAuthorityService authorityService, ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, UserAuthorityService authorityService, JWTService jwtService, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authorityService = authorityService;
+        this.jwtService = jwtService;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserOutput getById(Long id) {
@@ -60,6 +67,7 @@ public class UserService {
         entity.setAccountNonExpired(true);
         entity.setCredentialsNonExpired(true);
         entity.setAccountNonLocked(true);
+        entity.setPassword(this.passwordEncoder.encode(input.getPassword()));
 
 //        UserAuthorityEntity authority = this.authorityService.;
 
@@ -100,5 +108,43 @@ public class UserService {
         return this.modelMapper.map(this.userRepository.update(optionalUserEntity.get()), UserOutput.class);
     }
 
+    public UserLoginOut login(UserLoginInput input) {
+        Optional<UserEntity> optionalEntity = this.userRepository.getByUsername(input.getUsername());
+        if (optionalEntity.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        if (!this.passwordEncoder.matches(input.getPassword(), optionalEntity.get().getPassword())) {
+            throw new EntityNotFoundException();
+        }
+
+        return new UserLoginOut(optionalEntity.get().getUsername(), this.jwtService.generateToken(input.getUsername()));
+    }
+
+    @Transactional
+    public void enable(Long id) {
+        Optional<UserEntity> entity = this.userRepository.findById(id);
+        if (entity.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("enabled", true);
+
+        this.userRepository.update(id, params);
+    }
+
+    @Transactional
+    public void disable(Long id) {
+        Optional<UserEntity> entity = this.userRepository.findById(id);
+        if (entity.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("enabled", false);
+
+        this.userRepository.update(id, params);
+    }
 
 }

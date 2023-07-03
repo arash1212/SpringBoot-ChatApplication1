@@ -27,7 +27,7 @@ public class UserEntity implements IEntity, UserDetails {
     @Column(name = "USERNAME", length = 50, nullable = false, unique = true)
     private String username;
     @Basic
-    @Column(name = "PASSWORD", length = 50, nullable = false)
+    @Column(name = "PASSWORD", length = 255, nullable = false)
     private String password;
     @Basic
     @Column(name = "ACCOUNT_NON_EXPIRED", nullable = false)

@@ -1,6 +1,8 @@
 package com.example.springbootchatapplication1.controller;
 
 import com.example.springbootchatapplication1.model.dto.user.UserInput;
+import com.example.springbootchatapplication1.model.dto.user.UserLoginInput;
+import com.example.springbootchatapplication1.model.dto.user.UserLoginOut;
 import com.example.springbootchatapplication1.model.dto.user.UserOutput;
 import com.example.springbootchatapplication1.model.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,7 +21,7 @@ import java.util.List;
 @Tag(name = "User")
 @Validated
 @RestController
-@RequestMapping(path = "/public/user")
+@RequestMapping(path = "/pub/user")
 public class UserController {
 
     @Autowired
@@ -43,7 +45,6 @@ public class UserController {
         return new ResponseEntity<>(this.userService.getByUsername(username), HttpStatus.OK);
     }
 
-
     @Operation(summary = "Register new user", description = "Register new user")
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> save(@Valid @RequestBody UserInput input) {
@@ -64,9 +65,27 @@ public class UserController {
     }
 
     @Operation(summary = "Assign authority to  user", description = "Assign authority to  user")
-    @PatchMapping(path = "/{userId}")
+    @PatchMapping(path = "/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserOutput> assignAuthority(@PathVariable(name = "userId") Long userId, @RequestBody List<Long> authorityIds) {
         return new ResponseEntity<>(this.userService.assignAuthority(userId, authorityIds), HttpStatus.OK);
+    }
+
+    @Operation(summary = "User login - Generate token", description = "User login - Generate token")
+    @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserLoginOut> login(@Valid @RequestBody UserLoginInput input) {
+        return new ResponseEntity<>(this.userService.login(input), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Enable user account", description = "Enable user account")
+    @PatchMapping(path = "/enable/{id}")
+    public void enable(@PathVariable(name = "id") Long id) {
+        this.userService.enable(id);
+    }
+
+    @Operation(summary = "Disable user account", description = "Disable user account")
+    @PatchMapping(path = "/disable/{id}")
+    public void disable(@PathVariable(name = "id") Long id) {
+        this.userService.disable(id);
     }
 
 }
