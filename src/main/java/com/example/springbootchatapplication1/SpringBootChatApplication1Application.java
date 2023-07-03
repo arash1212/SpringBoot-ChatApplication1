@@ -1,7 +1,9 @@
 package com.example.springbootchatapplication1;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class SpringBootChatApplication1Application {
@@ -10,4 +12,9 @@ public class SpringBootChatApplication1Application {
         SpringApplication.run(SpringBootChatApplication1Application.class, args);
     }
 
+    //TODO
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 }
