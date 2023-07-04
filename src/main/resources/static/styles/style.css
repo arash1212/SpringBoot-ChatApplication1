@@ -50,8 +50,15 @@ body {
     margin-top: 5%;
 }
 
-#register-done-message-div{
+#register-done-message-div {
     color: green;
+    margin-right: 5%;
+    margin-top: 5%;
+}
+
+/************************User-Profile**************************/
+
+#user-info-div {
     margin-right: 5%;
     margin-top: 5%;
 }

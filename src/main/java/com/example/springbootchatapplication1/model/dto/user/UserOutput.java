@@ -4,15 +4,15 @@ import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthor
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Setter
 @Getter
 public class UserOutput {
     private Long id;
-    private Date createdAt;
-    private Date lastUpdateAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastUpdateAt;
     private String username;
     //    private String password;
     private Boolean accountNonExpired;

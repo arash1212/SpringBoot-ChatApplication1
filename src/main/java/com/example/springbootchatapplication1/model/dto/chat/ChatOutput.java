@@ -4,15 +4,15 @@ import com.example.springbootchatapplication1.model.entity.relational.ChatMessag
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 public class ChatOutput {
     private Long id;
-    private Date createdAt;
-    private Date lastUpdateAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastUpdateAt;
     private String title;
     private List<ChatMessageEntity> messages;
 }

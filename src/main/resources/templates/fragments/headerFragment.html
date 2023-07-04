@@ -8,9 +8,14 @@
 <div th::fragment="nav-bar" id="nav-bar-div">
     <ul id="nav-bar">
         <a th:href="@{/}"> <li>صفحه اصلی </li></a>
+
         <a  sec:authorize="isAuthenticated() == false" th:href="@{/pub/user/login}" ><li class="left">ورود به سایت</li></a>
         <li sec:authorize="isAuthenticated() == false" class="left" style="color: white;padding: 1.5% 0%;">|</li>
         <a  sec:authorize="isAuthenticated() == false" th:href="@{/pub/user/register}" ><li class="left">ثبت نام</li></a>
+        <a  sec:authorize="isAuthenticated() == true"
+            th:href="@{/pub/user/profile?username={username}(username=${#authentication.name})}" >
+        <!--setName after login-->
+            <li class="left" th:utext="${#authentication.name}">برو به پروفایل</li></a>
     </ul>
 </div>
 </body>

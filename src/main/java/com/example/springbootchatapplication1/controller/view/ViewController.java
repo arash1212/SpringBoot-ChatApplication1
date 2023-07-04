@@ -20,4 +20,9 @@ public class ViewController {
     public String goToUserLogin() {
         return "/pub/user/login";
     }
+
+    @GetMapping("/pub/user/profile")
+    public String goToUserProfile() {
+        return "/pub/user/profile";
+    }
 }

@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class UserAuthorityBriefOutput {
     private Long id;
-    private Date createdAt;
-    private Date lastUpdateAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastUpdateAt;
     private String authority;
     // private Set<UserBriefOutput> users;
 }

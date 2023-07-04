@@ -6,12 +6,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"/>
-    <title>صفحه اصلی</title>
+    <title>پروفایل کاربر</title>
     <link th:href="@{/styles/style.css}" rel="stylesheet">
 </head>
-
 <body dir="rtl">
-    <div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
-    <h1>خوش آمدید</h1>
+<div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
+
+<div id="user-info-div">
+    <h1 id="username"></h1>
+</div>
+
+<script type="text/javascript" th:src="@{/js/pub/user/profile.js}"></script>
 </body>
 </html>

@@ -4,6 +4,8 @@
       xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"/>
     <title>ورود به سایت</title>
   <link th:href="@{/styles/style.css}" rel="stylesheet">
 </head>
@@ -13,9 +15,9 @@
 <div id="user-login-div">
   <form th:action="@{/pub/user/login}" method="post">
     <label for="username">: نام کاربری</label><br />
-    <input name="username" id="username" placeholder="نام کاربری" required><br />
+    <input type="text" name="username" id="username" placeholder="نام کاربری" required><br />
     <label for="password">: رمز عبور</label><br />
-    <input name="password" id="password" placeholder="رمز عبور" required><br /><br />
+    <input type="password" name="password" id="password" placeholder="رمز عبور" required><br /><br />
     <input type="submit" value="ورود"><br />
   </form>
 </div>
