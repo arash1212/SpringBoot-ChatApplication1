@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self' http://localhost:8080/pub/users/register; script-src 'self'; style-src 'self' 'unsafe-inline'"/>
+    <title>ثبت نام کاربر</title>
+    <link th:href="@{/styles/style.css}" rel="stylesheet">
+</head>
+<body dir="rtl">
+<div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
+
+<div id="user-register-div">
+    <form id="register-form">
+        <label for="username">نام کاربری : </label> <br/>
+        <input type="text" name="username" id="username" placeholder="نام کاربری" required/><br/>
+
+        <label for="password">رمز عبور : </label> <br/>
+        <input type="password" name="password" id="password" placeholder="رمز عبور" required/><br/>
+        <label for="password-repeat">تکرار رمز عبور : </label> <br/>
+        <input type="password" name="password-repeat" id="password-repeat" placeholder="تکرار رمز عبور"
+               required/><br/><br/>
+
+        <input type="button" value="ثبت" id="user-register-form-submit-btn">
+    </form>
+
+    <div id="error-message-div" style="color: red;"></div>
+
+
+</div>
+
+<div id="register-done-message-div">
+    ثبت نام موفقیت آمیز بود.
+    <a th:href="@{/pub/user/login}"> برای ورود کلیک کنید</a>
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/pub/user/register.js}"></script>
+</body>
+</html>

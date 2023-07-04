@@ -2,7 +2,7 @@ package com.example.springbootchatapplication1.model.service;
 
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityInput;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityOutput;
-import com.example.springbootchatapplication1.model.entity.UserAuthorityEntity;
+import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
 import com.example.springbootchatapplication1.model.repository.UserAuthorityRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;

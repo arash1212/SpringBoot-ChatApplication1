@@ -1,6 +1,6 @@
 package com.example.springbootchatapplication1.model.repository;
 
-import com.example.springbootchatapplication1.model.entity.UserEntity;
+import com.example.springbootchatapplication1.model.entity.relational.UserEntity;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 

@@ -1,15 +1,16 @@
 package com.example.springbootchatapplication1.model.dto.userAuthority;
 
-import com.example.springbootchatapplication1.model.dto.user.UserBriefOutput;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.sql.Date;
 
 @Getter
 @Setter
 public class UserAuthorityBriefOutput {
     private Long id;
+    private Date createdAt;
+    private Date lastUpdateAt;
     private String authority;
-   // private Set<UserBriefOutput> users;
+    // private Set<UserBriefOutput> users;
 }

@@ -1,6 +1,6 @@
 package com.example.springbootchatapplication1.model.service.security;
 
-import com.example.springbootchatapplication1.model.entity.UserEntity;
+import com.example.springbootchatapplication1.model.entity.relational.UserEntity;
 import com.example.springbootchatapplication1.model.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

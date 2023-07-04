@@ -1,6 +1,6 @@
 package com.example.springbootchatapplication1.model.repository;
 
-import com.example.springbootchatapplication1.model.entity.UserAuthorityEntity;
+import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository

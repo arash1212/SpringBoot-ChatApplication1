@@ -24,17 +24,18 @@ public class SecurityConfig {
         http.csrf((csrf) -> {
             csrf.disable();
         });
-        http.cors((cors)->{
+        http.cors((cors) -> {
             cors.disable();
         });
 
         http.authorizeHttpRequests((request) -> {
-            request.requestMatchers("/pub/**", "/swagger-ui/**", "/api-docs", "/api-docs/**")
+            request.requestMatchers("/styles/**", "/js/**", "/", "/index",
+                            "/pub/**", "/swagger-ui/**", "/api-docs", "/api-docs/**")
                     .permitAll().anyRequest().authenticated();
         });
 
-        http.formLogin((form)->{
-            form.permitAll();
+        http.formLogin((form) -> {
+            form.loginPage("/pub/user/login").successForwardUrl("/").permitAll();
         });
 
 

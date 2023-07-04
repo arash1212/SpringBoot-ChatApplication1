@@ -1,0 +1,57 @@
+/************************Main*************************/
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+/***********************Navbar************************/
+#nav-bar-div {
+    background-color: #03281b;
+}
+
+#nav-bar {
+    list-style: none;
+}
+
+#nav-bar a {
+    color: white;
+    text-decoration: none;
+}
+
+#nav-bar a :hover {
+    color: #048872;
+}
+
+#nav-bar li {
+    display: inline-block;
+    padding: 1.5%;
+}
+
+/***********************User-Register************************/
+
+#user-register-div {
+    margin-right: 5%;
+    margin-top: 5%;
+}
+
+/************************User-Login**************************/
+
+#user-login-div {
+    margin-right: 5%;
+    margin-top: 5%;
+}
+
+#register-done-message-div{
+    color: green;
+    margin-right: 5%;
+    margin-top: 5%;
+}

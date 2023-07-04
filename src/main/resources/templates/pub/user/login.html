@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>ورود به سایت</title>
+  <link th:href="@{/styles/style.css}" rel="stylesheet">
+</head>
+<body dir="rtl">
+<div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
+
+<div id="user-login-div">
+  <form th:action="@{/pub/user/login}" method="post">
+    <label for="username">: نام کاربری</label><br />
+    <input name="username" id="username" placeholder="نام کاربری" required><br />
+    <label for="password">: رمز عبور</label><br />
+    <input name="password" id="password" placeholder="رمز عبور" required><br /><br />
+    <input type="submit" value="ورود"><br />
+  </form>
+</div>
+
+</body>
+</html>
