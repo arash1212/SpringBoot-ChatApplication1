@@ -17,6 +17,6 @@ public class UserAuthorityRepository extends GenericRepository<UserAuthorityEnti
         String query = "Select entity from USER_AUTHORITY AS entity where entity.authority=:authority";
         TypedQuery<UserAuthorityEntity> typedQuery = (TypedQuery<UserAuthorityEntity>) super.entityManager.createQuery(query);
         typedQuery.setParameter("authority", authority);
-        return Optional.of(typedQuery.getSingleResult());
+        return typedQuery.getResultList().size() > 0 ? Optional.of(typedQuery.getResultList().get(0)) : Optional.empty();
     }
 }

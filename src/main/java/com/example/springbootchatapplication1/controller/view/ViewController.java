@@ -25,4 +25,15 @@ public class ViewController {
     public String goToUserProfile() {
         return "/pub/user/profile";
     }
+
+    /****************************************************admin*********************************************************/
+    @GetMapping("/adm/")
+    public String goToAdmIndex() {
+        return "/adm/index";
+    }
+
+    @GetMapping("/adm/authority")
+    public String goToAdmAuthorities() {
+        return "/adm/authority/authorities";
+    }
 }

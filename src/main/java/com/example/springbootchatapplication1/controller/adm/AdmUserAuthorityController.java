@@ -21,7 +21,7 @@ import java.util.List;
 @Tag(name = "Adm-UserAuthority")
 @Validated
 @RestController
-@RequestMapping(path = "/pub/user/authority")
+@RequestMapping(path = "/adm/user/authority")
 public class AdmUserAuthorityController {
     @Autowired
     private UserAuthorityService userAuthorityService;

@@ -28,8 +28,9 @@ public class SecurityConfig {
             cors.disable();
         });
 
+        //todo : admin
         http.authorizeHttpRequests((request) -> {
-            request.requestMatchers("/error/**", "/uploadedFiles/pub/**", "/styles/**", "/js/**", "/", "/index",
+            request.requestMatchers( "/error/**", "/uploadedFiles/pub/**", "/styles/**", "/js/**", "/", "/index",
                             "/pub/**", "/swagger-ui/**", "/api-docs", "/api-docs/**")
                     .permitAll().anyRequest().authenticated();
         });
@@ -38,6 +39,9 @@ public class SecurityConfig {
             form.loginPage("/pub/user/login").successForwardUrl("/").permitAll();
         });
 
+        http.logout((logout)->{
+            logout.logoutUrl("/logout");
+        });
 
         http.userDetailsService(this.userDetailsService);
         return http.build();

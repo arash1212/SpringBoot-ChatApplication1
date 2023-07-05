@@ -24,7 +24,7 @@ public class UserOutput {
     private Set<UserAuthorityBriefOutput> authorities;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdateAt;
-    private Long creatorId;
-    private Long lastModifierId;
+//    private Long creatorId;
+//    private Long lastModifierId;
     private String profilePicture;
 }

@@ -11,8 +11,8 @@ import java.util.Set;
 @Setter
 public class UserAuthorityOutput {
     private Long id;
+    private String authority;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdateAt;
-    private String authority;
     private Set<UserBriefOutput> users;
 }

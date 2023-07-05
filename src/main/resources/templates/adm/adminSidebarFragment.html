@@ -1,0 +1,47 @@
+<!----------------------------------------------------Side Bar--------------------------------------------------------->
+
+
+<div th::fragment="admin-side-bar" id="admin-side-bar" class="bg-dark p-2">
+
+    <a class="d-flex text-decoration-none mt-1 align-items-center text-white">
+        <span class="fs-5 d-none d-sm-inline">منوی ادمین</span>
+    </a>
+
+    <ul class="nav nav-pills flex-column mt-4">
+
+        <!-------------------------------Item------------------------------->
+        <li class="nav-item border-bottom">
+            <a th:href="@{/adm/}" class="nav-link text-white">
+                <i class="fs-5 fa "></i><span class="fs-6 ms-3 d-none d-sm-inline">خانه</span>
+            </a>
+        </li>
+        <!-------------------------------Item------------------------------->
+        <li class="nav-item border-bottom">
+            <a th:href="@{/}" class="nav-link text-white">
+                <i class="fs-5 fa "></i><span class="fs-6 ms-3 d-none d-sm-inline">بازگشت به وبسایت</span>
+            </a>
+        </li>
+        <!-------------------------------Item------------------------------->
+        <li class="nav-item border-bottom">
+            <a th:href="@{/adm/authority}" class="nav-link text-white">
+                <i class="fs-5 fa "></i><span class="fs-6 ms-3 d-none d-sm-inline">نقش ها</span>
+            </a>
+        </li>
+        <!-------------------------------Item------------------------------->
+
+    </ul>
+</div>
+
+
+<!-------------------------------Template------------------------------->
+<!--<div class="container-fluid">-->
+<!--    <div class="row flex-nowrap">-->
+<!--        <div class="bg-dark col-auto col-md-4 col-lg-3 min-vh-100 d-flex flex-column justify-content-between"-->
+<!--             th:insert="~{adm/adminSidebarFragment.html :: #admin-side-bar}"></div>-->
+
+<!--        <div class="p-3">-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+

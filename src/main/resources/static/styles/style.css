@@ -14,27 +14,28 @@ body {
 }
 
 /***********************Navbar************************/
-#nav-bar-div {
-    background-color: #03281b;
-}
+/*#nav-bar-div {*/
+/*    background-color: #03281b;*/
+/*    margin-bottom: 0;*/
+/*}*/
 
-#nav-bar {
-    list-style: none;
-}
+/*#nav-bar {*/
+/*    list-style: none;*/
+/*}*/
 
-#nav-bar a {
-    color: white;
-    text-decoration: none;
-}
+/*#nav-bar a {*/
+/*    color: white;*/
+/*    text-decoration: none;*/
+/*}*/
 
-#nav-bar a :hover {
-    color: #048872;
-}
+/*#nav-bar a :hover {*/
+/*    color: #048872;*/
+/*}*/
 
-#nav-bar li {
-    display: inline-block;
-    padding: 1.5%;
-}
+/*#nav-bar li {*/
+/*    display: inline-block;*/
+/*    padding: 1.5%;*/
+/*}*/
 
 /***********************User-Register************************/
 
@@ -43,7 +44,7 @@ body {
     margin-top: 5%;
 }
 
-#img-profile-picture{
+#img-profile-picture {
     width: 20%;
 }
 
@@ -66,3 +67,13 @@ body {
     margin-right: 5%;
     margin-top: 5%;
 }
+
+/************************Admin-Panel-Index**************************/
+.nav-pills li a:hover {
+    background-color: cadetblue;
+}
+
+/************************Admin-Panel-Authorities**************************/
+/*#authorities-table{*/
+/*    width: 100%;*/
+/*}*/
