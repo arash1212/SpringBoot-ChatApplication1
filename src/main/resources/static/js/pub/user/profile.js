@@ -1,4 +1,5 @@
 let usernameInput = document.getElementById('username');
+let userProfileImage = document.getElementById('user-profile-img');
 
 let userId = -1;
 let username = "";
@@ -11,7 +12,9 @@ username = urlParams.get('username');
 let userInfo = {
     id: -1,
     username: "",
-    createdAt: ""
+    createdAt: "",
+    profilePicture: ""
+
 };
 
 (async () => {
@@ -27,8 +30,10 @@ let userInfo = {
             userInfo.id = json.id;
             userInfo.username = json.username;
             userInfo.createdAt = json.createdAt;
+            userInfo.profilePicture = json.profilePicture;
         });
 
-    usernameInput.innerText =  'پروفایل : ' + userInfo.username ;
+    usernameInput.innerText = 'پروفایل : ' + userInfo.username;
+    userProfileImage.src = userInfo.profilePicture;
 })();
 
