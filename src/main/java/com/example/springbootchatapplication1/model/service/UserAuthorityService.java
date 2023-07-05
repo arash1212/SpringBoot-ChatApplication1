@@ -3,6 +3,7 @@ package com.example.springbootchatapplication1.model.service;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityInput;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityOutput;
 import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
+import com.example.springbootchatapplication1.model.entity.relational.UserEntity;
 import com.example.springbootchatapplication1.model.repository.UserAuthorityRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -55,6 +56,11 @@ public class UserAuthorityService {
     @Transactional
     public Long save(UserAuthorityInput input) {
         UserAuthorityEntity entity = this.modelMapper.map(input, UserAuthorityEntity.class);
+
+        Optional<UserAuthorityEntity> optionalOldEntity = this.authorityRepository.getByName(input.getAuthority());
+        if (!optionalOldEntity.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
         return this.authorityRepository.save(entity);
     }
 

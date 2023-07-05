@@ -12,9 +12,9 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Getter
@@ -37,6 +37,12 @@ public class UserEntity implements IEntity, UserDetails {
     @Basic
     @Column(name = "PASSWORD", length = 255, nullable = false)
     private String password;
+    @Basic
+    @Column(name = "NAME", length = 100, nullable = false)
+    private String name;
+    @Basic
+    @Column(name = "FAMILY", length = 100, nullable = true)
+    private String family;
     @Basic
     @Column(name = "ACCOUNT_NON_EXPIRED", nullable = false)
     private boolean accountNonExpired;
@@ -77,5 +83,10 @@ public class UserEntity implements IEntity, UserDetails {
     @JoinColumn(name = "LAST_MODIFIER_ID", insertable = false, updatable = false, nullable = true)
     private UserEntity lastModifier;
     /******************************************************************************************************************/
-
+    @Transient
+    private MultipartFile profilePictureFile;
+    @Basic
+    @Column(name = "PROFILE_PICTURE", length = 500, nullable = true)
+    private String profilePicture;
+    /******************************************************************************************************************/
 }

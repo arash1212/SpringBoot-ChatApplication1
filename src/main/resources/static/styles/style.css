@@ -43,6 +43,10 @@ body {
     margin-top: 5%;
 }
 
+#img-profile-picture{
+    width: 20%;
+}
+
 /************************User-Login**************************/
 
 #user-login-div {

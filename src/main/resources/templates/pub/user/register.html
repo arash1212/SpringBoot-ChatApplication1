@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"/>
+          content="script-src 'self'; style-src 'self' 'unsafe-inline'"/>
     <title>ثبت نام کاربر</title>
     <link th:href="@{/styles/style.css}" rel="stylesheet">
     <link th:href="@{/styles/bootstrap.css}" rel="stylesheet">
@@ -14,7 +14,7 @@
 <div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
 
 <div id="user-register-div">
-    <form id="register-form">
+    <form id="register-form" th:action="@{/pub/user/}" method="post" enctype="multipart/form-data">
         <label for="username">نام کاربری : </label> <br/>
         <input type="text" name="username" id="username" placeholder="نام کاربری" required/><br/>
 
@@ -24,10 +24,20 @@
         <input type="password" name="password-repeat" id="password-repeat" placeholder="تکرار رمز عبور"
                required/><br/><br/>
 
+        <label for="name">نام : </label> <br/>
+        <input type="text" name="name" id="name" placeholder="نام" required/><br/>
+        <label for="family">نام خانوادگی : </label> <br/>
+        <input type="text" name="family" id="family" placeholder="نام خانوادگی" required/><br/><br/><br/>
+
+        <label for="profilePictureFile">تصویر پروفایل : </label> <br/>
+        <input type="file" name="profilePictureFile" id="profilePictureFile" placeholder="تصویر پروفایل" required/><br/>
+        <input type="button" id="upload-profile_picture_btn" name="upload-profile_picture_btn" th:value="آپلود"/> <br /><br />
+        <img th:src="@{/uploadedFiles/jpg/aa3cd343-d324-41f9-866a-f62e57e3d0c1.jpg}" id="img-profile-picture"/> <br/> <br/> <br/>
         <input type="button" value="ثبت" id="user-register-form-submit-btn">
+        <!--        <input type="submit" value="ثبت">-->
     </form>
 
-    <div id="error-message-div" style="color: red;"></div>
+    <div id="error-message-div" style="color: red;"></div> <br /><br /><br />
 
 
 </div>

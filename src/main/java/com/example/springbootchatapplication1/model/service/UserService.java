@@ -7,6 +7,7 @@ import com.example.springbootchatapplication1.model.dto.user.UserOutput;
 import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
 import com.example.springbootchatapplication1.model.entity.relational.UserEntity;
 import com.example.springbootchatapplication1.model.repository.UserRepository;
+import com.example.springbootchatapplication1.utils.FileService;
 import com.example.springbootchatapplication1.utils.JWTService;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -25,14 +26,16 @@ public class UserService {
     private JWTService jwtService;
     private ModelMapper modelMapper;
     private PasswordEncoder passwordEncoder;
+    private FileService fileService;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserAuthorityService authorityService, JWTService jwtService, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, UserAuthorityService authorityService, JWTService jwtService, ModelMapper modelMapper, PasswordEncoder passwordEncoder, FileService fileService) {
         this.userRepository = userRepository;
         this.authorityService = authorityService;
         this.jwtService = jwtService;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
+        this.fileService = fileService;
     }
 
     public UserOutput getById(Long id) {
@@ -62,6 +65,12 @@ public class UserService {
     @Transactional
     public Long save(UserInput input) {
         UserEntity entity = this.modelMapper.map(input, UserEntity.class);
+
+        Optional<UserEntity> optionalOldEntity = this.userRepository.getByUsername(input.getUsername());
+        //Todo excption ha
+        if (!optionalOldEntity.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
 
         entity.setEnabled(false);
         entity.setAccountNonExpired(true);

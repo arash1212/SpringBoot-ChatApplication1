@@ -38,7 +38,7 @@ public class PubUserController {
     @Operation(summary = "Register new user", description = "Register new user")
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> save(@Valid @RequestBody UserInput input) {
-        return new ResponseEntity<>(this.userService.save(input), HttpStatus.CREATED);
+        return ResponseEntity.ok(this.userService.save(input));
     }
 
     @Operation(summary = "User login - Generate token", description = "User login - Generate token")
