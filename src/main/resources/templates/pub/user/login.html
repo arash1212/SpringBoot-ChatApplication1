@@ -7,19 +7,20 @@
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"/>
     <title>ورود به سایت</title>
-  <link th:href="@{/styles/style.css}" rel="stylesheet">
+    <link th:href="@{/styles/style.css}" rel="stylesheet">
+    <link th:href="@{/styles/bootstrap.css}" rel="stylesheet">
 </head>
 <body dir="rtl">
 <div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
 
 <div id="user-login-div">
-  <form th:action="@{/pub/user/login}" method="post">
-    <label for="username">: نام کاربری</label><br />
-    <input type="text" name="username" id="username" placeholder="نام کاربری" required><br />
-    <label for="password">: رمز عبور</label><br />
-    <input type="password" name="password" id="password" placeholder="رمز عبور" required><br /><br />
-    <input type="submit" value="ورود"><br />
-  </form>
+    <form th:action="@{/pub/user/login}" method="post">
+        <label for="username">: نام کاربری</label><br/>
+        <input type="text" name="username" id="username" placeholder="نام کاربری" required><br/>
+        <label for="password">: رمز عبور</label><br/>
+        <input type="password" name="password" id="password" placeholder="رمز عبور" required><br/><br/>
+        <input type="submit" value="ورود"><br/>
+    </form>
 </div>
 
 </body>
