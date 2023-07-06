@@ -30,13 +30,16 @@ public class SecurityConfig {
 
         //todo : admin
         http.authorizeHttpRequests((request) -> {
-            request.requestMatchers( "/error/**", "/uploadedFiles/pub/**", "/styles/**", "/js/**", "/", "/index",
+            request.requestMatchers("/view/pub/**" ,
+                            "/error/**",
+                            "/uploadedFiles/pub/**", "/styles/**", "/js/**",
+                            "/", "/index",
                             "/pub/**", "/swagger-ui/**", "/api-docs", "/api-docs/**")
                     .permitAll().anyRequest().authenticated();
         });
 
         http.formLogin((form) -> {
-            form.loginPage("/pub/user/login").successForwardUrl("/").permitAll();
+            form.loginPage("/view/pub/user/login").successForwardUrl("/").permitAll();
         });
 
         http.logout((logout)->{

@@ -2,8 +2,11 @@ package com.example.springbootchatapplication1.controller.view;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping(path = "/view")
 public class ViewController {
 
     @GetMapping("/")
@@ -11,9 +14,9 @@ public class ViewController {
         return "index";
     }
 
-    @GetMapping("/pub/user/register")
+    @GetMapping("/pub/user/create")
     public String goToUserRegister() {
-        return "/pub/user/register";
+        return "/pub/user/create";
     }
 
     @GetMapping("/pub/user/login")
@@ -21,9 +24,9 @@ public class ViewController {
         return "/pub/user/login";
     }
 
-    @GetMapping("/pub/user/profile")
-    public String goToUserProfile() {
-        return "/pub/user/profile";
+    @GetMapping("/pub/user/{username}")
+    public String goToUserProfile(@PathVariable(name = "username") String username) {
+        return "/pub/user/user";
     }
 
     /****************************************************admin*********************************************************/
@@ -34,6 +37,26 @@ public class ViewController {
 
     @GetMapping("/adm/authority")
     public String goToAdmAuthorities() {
-        return "/adm/authority/authorities";
+        return "/adm/authority/authority";
+    }
+
+    @GetMapping("/adm/authority/create")
+    public String goToAdmAuthorityCreate() {
+        return "/adm/authority/create";
+    }
+
+    @GetMapping("/adm/messaging/provider/")
+    public String goToAdmProviders() {
+        return "/adm/messageProvider/messageProvider";
+    }
+
+    @GetMapping("/adm/messaging/provider/create")
+    public String goToAdmProviderCreate() {
+        return "/adm/messageProvider/create";
+    }
+
+    @GetMapping("/adm/messaging/create")
+    public String goToAdmMessagingCreate() {
+        return "/adm/messaging/create";
     }
 }

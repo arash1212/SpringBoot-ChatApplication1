@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"/>
+  <title>ایجاد اختیارات جدید</title>
+  <link th:href="@{/styles/style.css}" rel="stylesheet">
+  <link th:href="@{/styles/bootstrap.css}" rel="stylesheet">
+</head>
+
+<body dir="rtl">
+<div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
+
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="bg-dark col-auto col-md-4 col-lg-2 min-vh-100 d-flex flex-column justify-content-between"
+         th:insert="~{adm/adminSidebarFragment.html :: #admin-side-bar}"></div>
+    <div class="p-3">
+
+      <form id="authority-create-form">
+        <label for="authority">عنوان :</label><br/>
+        <input type="text" name="authority" id="authority" placeholder="عنوان اختیارات" required/><br><br/>
+
+        <input type="submit" value="ارسال" id="submit-button"><br/><br/>
+      </form>
+
+      <div id="operation-result-div"></div>
+
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript" th:src="@{/js/adm/authority/create.js}"></script>
+</body>
+</html>

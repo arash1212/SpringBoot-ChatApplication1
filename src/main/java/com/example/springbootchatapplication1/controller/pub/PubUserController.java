@@ -30,8 +30,8 @@ public class PubUserController {
     }
 
     @Operation(summary = "Get user by username", description = "Get user by username")
-    @GetMapping(path = "/by-username", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserOutput> getByUsername(@RequestParam(name = "username") String username) {
+    @GetMapping(path = "/username/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserOutput> getByUsername(@PathVariable(name = "username") String username) {
         return new ResponseEntity<>(this.userService.getByUsername(username), HttpStatus.OK);
     }
 

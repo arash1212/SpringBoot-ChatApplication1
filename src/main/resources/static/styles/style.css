@@ -70,10 +70,11 @@ body {
 
 #user-profile-img {
     width: 250px;
-    border-radius: 40%;
+    border-radius: 2%;
 }
 
 /************************Admin-Panel-Index**************************/
+
 .nav-pills li a:hover {
     background-color: cadetblue;
 }

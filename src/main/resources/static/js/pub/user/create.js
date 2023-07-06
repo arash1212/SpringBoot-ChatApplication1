@@ -1,4 +1,3 @@
-
 let userRegisterDiv = document.getElementById('user-register-div');
 let submitBtn = document.getElementById("user-register-form-submit-btn");
 let usernameInput = document.getElementById('username');
@@ -13,11 +12,7 @@ let profilePictureImg = document.getElementById('img-profile-picture');
 let registerForm = document.getElementById('register-form');
 
 let registerObj = {
-    username: "",
-    password: "",
-    name: "",
-    family: "",
-    profilePicture: ""
+    username: "", password: "", name: "", family: "", profilePicture: ""
 };
 
 registerDoneMessageDiv.hidden = true;
@@ -33,30 +28,31 @@ submitBtn.onclick = function (e) {
     registerObj.name = nameInput.value;
     registerObj.family = familyInput.value;
 
-        (async () => {
-            let response = await fetch("/pub/user/", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(registerObj)
-            });
+    (async () => {
+        let response = await fetch("/pub/user/", {
+            method: "POST", headers: {
+                Accept: "application/json", "Content-Type": "application/json"
+            }, body: JSON.stringify(registerObj)
+        });
 
-            let responseCode = JSON.stringify(response.status);
-            console.log(responseCode);
-            if (responseCode === '200') {
-                usernameInput.value = '';
-                passwordInput.value = '';
-                nameInput.value = '';
-                familyInput.value = '';
-                profilePictureFileInput.value = '';
-                userRegisterDiv.hidden = true;
-                registerDoneMessageDiv.hidden = false;
-            }else if(responseCode === '500'){
-                errorMessageDiv.innerText = 'خطا سرور'
-            }
-        })();
+        let responseCode = JSON.stringify(response.status);
+        console.log(responseCode);
+        if (responseCode === '200') {
+            usernameInput.value = '';
+            passwordInput.value = '';
+            nameInput.value = '';
+            familyInput.value = '';
+            profilePictureFileInput.value = '';
+            userRegisterDiv.hidden = true;
+            registerDoneMessageDiv.hidden = false;
+        } else if (responseCode === '500') {
+            errorMessageDiv.innerText = 'خطا سرور'
+        } else {
+            operationResultDiv.hidden = false;
+            operationResultDiv.style.color = 'red';
+            operationResultDiv.innerText = 'نامشخص';
+        }
+    })();
 }
 
 function validateInputs() {
@@ -84,8 +80,7 @@ function uploadFile(fileInput, subDirectories) {
     let response;
     (async () => {
         await fetch("/pub/files/upload", {
-            method: "POST",
-            body: fileFormData
+            method: "POST", body: fileFormData
         })
             .then(e => e.text())
             .then(text => {

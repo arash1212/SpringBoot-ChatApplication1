@@ -14,7 +14,7 @@
 <div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
 
 <div id="user-login-div">
-    <form th:action="@{/pub/user/login}" method="post">
+    <form th:action="@{/view/pub/user/login}" method="post">
         <label for="username">: نام کاربری</label><br/>
         <input type="text" name="username" id="username" placeholder="نام کاربری" required><br/>
         <label for="password">: رمز عبور</label><br/>

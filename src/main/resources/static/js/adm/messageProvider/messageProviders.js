@@ -1,11 +1,10 @@
-let authoritiesTable = document.getElementById('authorities-table');
+let messageProvidersTable = document.getElementById('message-providers-table');
 let createBtn = document.getElementById('create-btn');
 
-let GET_ALL = "/adm/user/authority/";
-let DELETE = "/adm/user/authority/";
+let GET_ALL = "/adm/message/provider/";
+let DELETE = "/adm/message/provider/";
 
 // ++++++++++++++++++++++++++++++++++++Refresh++++++++++++++++++++++++++++++++++++++++++
-
 function refreshTable() {
     fetch(GET_ALL, {
         method: "GET", headers: {}
@@ -36,7 +35,7 @@ function fillTable(data) {
         deleteButtonTd.appendChild(deleteButton);
 
         tr.appendChild(deleteButtonTd);
-        authoritiesTable.appendChild(tr);
+        messageProvidersTable.appendChild(tr);
     }
 }
 
@@ -57,5 +56,5 @@ refreshTable();
 // +++++++++++++++++++++++++++++++++Create button++++++++++++++++++++++++++++++++++++++++
 
 createBtn.onclick = (e) => {
-    window.location.href = "/view/adm/authority/create";
+    window.location.href = "/view/adm/messaging/provider/create";
 }

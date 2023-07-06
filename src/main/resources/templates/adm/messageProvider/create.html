@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"/>
+    <title>ایجاد سرویس جدید</title>
+    <link th:href="@{/styles/style.css}" rel="stylesheet">
+    <link th:href="@{/styles/bootstrap.css}" rel="stylesheet">
+</head>
+<body dir="rtl">
+<div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
+
+<div  class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="bg-dark col-auto col-md-4 col-lg-2 min-vh-100 d-flex flex-column justify-content-between"
+             th:insert="~{adm/adminSidebarFragment.html :: #admin-side-bar}"></div>
+        <div class="p-3">
+
+            <form id="message-provider-create-form">
+                <label for="title">عنوان سرویس :</label><br />
+                <input type="text" name="title" id="title" placeholder="از این عنوان برای پیدا کردن سرویس استفاده خواهد شد" required /><br />
+
+                <label for="username">نام کاربری سرویس :</label><br />
+                <input type="text" name="username" id="username" placeholder="نام کاربری/ایمیل مربوط به سرویس" required /><br />
+
+                <label for="password">رمز عبور سرویس :</label><br />
+                <input type="password" name="password" id="password" placeholder="رمز عبور مربوط به سرویس" required /><br /><br />
+
+                <input type="button" id="message-provider-create-form-submit-btn" value="ثبت">
+            </form>
+
+            <div id="operation-result-div"></div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/adm/messageProvider/create.js}"></script>
+</body>
+</html>

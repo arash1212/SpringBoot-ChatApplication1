@@ -17,7 +17,7 @@
                     <a class="nav-link" th:href="@{/}" > صفحه اصلی </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/adm/}" > پنل ادمین </a>
+                    <a class="nav-link" th:href="@{/view/adm/}" > پنل ادمین </a>
                 </li>
 
             </ul>
@@ -26,7 +26,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item" sec:authorize="isAuthenticated() == false" >
-                    <a class="nav-link" th:href="@{/pub/user/login}" >ورود به سایت</a>
+                    <a class="nav-link" th:href="@{/view/pub/user/login}" >ورود به سایت</a>
                 </li>
 
                 <li class="nav-item" sec:authorize="isAuthenticated() == false" style="color: white;padding: 1.5% 0;">
@@ -34,13 +34,13 @@
                 </li>
 
                 <li class="nav-item" sec:authorize="isAuthenticated() == false">
-                    <a class="nav-link" th:href="@{/pub/user/register}">ثبت نام</a>
+                    <a class="nav-link" th:href="@{/view/pub/user/create}">ثبت نام</a>
                 </li>
 
                 <li class="nav-item" sec:authorize="isAuthenticated() == true">
                     <!--setName after login-->
                     <a class="nav-link"
-                       th:href="@{/pub/user/profile?username={username}(username=${#authentication.name})}"
+                       th:href="@{/view/pub/user/{username}(username=${#authentication.name})}"
                        th:utext="${#authentication.name}">برو به پروفایل</a>
                 </li>
 

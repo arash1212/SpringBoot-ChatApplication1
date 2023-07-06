@@ -1,9 +1,11 @@
 package com.example.springbootchatapplication1.model.repository;
 
 import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
-import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -14,9 +16,11 @@ public class UserAuthorityRepository extends GenericRepository<UserAuthorityEnti
     }
 
     public Optional<UserAuthorityEntity> getByName(String authority) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("authority", authority);
+
         String query = "Select entity from USER_AUTHORITY AS entity where entity.authority=:authority";
-        TypedQuery<UserAuthorityEntity> typedQuery = (TypedQuery<UserAuthorityEntity>) super.entityManager.createQuery(query);
-        typedQuery.setParameter("authority", authority);
-        return typedQuery.getResultList().size() > 0 ? Optional.of(typedQuery.getResultList().get(0)) : Optional.empty();
+        List<UserAuthorityEntity> authorityEntityList = super.selectQuery(query, params);
+        return authorityEntityList.size() > 0 ? Optional.of(authorityEntityList.get(0)) : Optional.empty();
     }
 }

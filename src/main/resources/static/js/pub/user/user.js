@@ -18,10 +18,14 @@ let userInfo = {
 };
 
 (async () => {
+    let arr = window.location.pathname.split('/');
+    username = arr[arr.length - 1];
     if (username == null || username === '') {
         return;
     }
-    let response = await fetch("/pub/user/by-username?username=" + username, {
+
+    console.log('username : ' + username);
+    let response = await fetch("/pub/user/username/" + username, {
         method: "GET"
     }).then(response => response.json())
         .then(json => {

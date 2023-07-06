@@ -49,7 +49,7 @@ public class AdmUserAuthorityController {
     @Operation(summary = "Create new userAuthority", description = "Create new userAuthority")
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> save(@Valid @RequestBody UserAuthorityInput input, @AuthenticationPrincipal Principal principal) {
-        return new ResponseEntity<>(this.userAuthorityService.save(input), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.userAuthorityService.save(input), HttpStatus.OK);
     }
 
     @Operation(summary = "Update userAuthority by id", description = "Update userAuthority by id")
