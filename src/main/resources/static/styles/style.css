@@ -83,3 +83,15 @@ body {
 /*#authorities-table{*/
 /*    width: 100%;*/
 /*}*/
+
+/*********************************Chat************************************/
+#message-text-area {
+    resize: none;
+    width: 400px;
+    height: 200px;
+}
+
+#chat-form-div{
+    margin-right: 5%;
+    margin-top: 5%;
+}

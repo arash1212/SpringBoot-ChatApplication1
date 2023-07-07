@@ -21,6 +21,11 @@ public abstract class GenericRepository<T extends IEntity> {
         return t.getId();
     }
 
+    public T saveAndGetEntity(T t){
+        this.entityManager.persist(t);
+        return t;
+    }
+
     public T update(T t) {
         this.entityManager.merge(t);
         return t;

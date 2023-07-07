@@ -1,5 +1,6 @@
 package com.example.springbootchatapplication1.model.dto.chatMessage;
 
+import com.example.springbootchatapplication1.model.dto.user.UserBriefOutput;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,6 @@ public class ChatMessageOutput {
     private LocalDateTime lastUpdateAt;
     private String text;
     private Long chatId;
-    private Long creatorId;
-    private Long receiverId;
+    private UserBriefOutput creator;
+    private UserBriefOutput receiver;
 }

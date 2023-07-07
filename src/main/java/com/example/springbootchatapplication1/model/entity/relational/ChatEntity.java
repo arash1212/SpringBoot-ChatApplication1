@@ -13,13 +13,14 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Set;
 
 
 @Getter
 @Setter
-@Table(name = "CHAT", indexes = {})
+@Table(name = "CHAT", indexes = {
+        @Index(name = "CHAT_IDX_TITLE", columnList = "TITLE")
+})
 @Entity(name = "CHAT")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIdentityInfo(property = "id", generator = ObjectIdGenerators.PropertyGenerator.class)

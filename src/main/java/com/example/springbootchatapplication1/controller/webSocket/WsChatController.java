@@ -1,13 +1,26 @@
 package com.example.springbootchatapplication1.controller.webSocket;
 
+import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageInput;
+import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageOutput;
+import com.example.springbootchatapplication1.model.service.ChatMessageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class WsChatController {
 
-//    @MessageMapping("/chat")
-//    @SendTo("/topic/chat")
-//    public String chat() {
-//
-//    }
+    @Autowired
+    private ChatMessageService chatMessageService;
+
+    @MessageMapping("/chat")
+    @SendTo("/topic/chat")
+    public ChatMessageOutput chat(ChatMessageInput input, @AuthenticationPrincipal Authentication authentication) {
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return this.chatMessageService.save(input);
+    }
 }

@@ -35,6 +35,16 @@ public class ChatService {
         return this.modelMapper.map(optionalEntity.get(), ChatOutput.class);
     }
 
+    public ChatOutput getByTitle(String title) {
+        title = title.toUpperCase();
+        Optional<ChatEntity> optionalEntity = this.chatRepository.getByTitle(title);
+        if (optionalEntity.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        return this.modelMapper.map(optionalEntity.get(), ChatOutput.class);
+    }
+
     public List<ChatOutput> getAll() {
         List<ChatEntity> userEntities = this.chatRepository.findAll();
         return userEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, ChatOutput.class)).
@@ -44,6 +54,7 @@ public class ChatService {
     @Transactional
     public Long save(ChatInput input) {
         ChatEntity entity = this.modelMapper.map(input, ChatEntity.class);
+        entity.setTitle(input.getTitle().toUpperCase());
 
         return this.chatRepository.save(entity);
     }

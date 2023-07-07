@@ -43,10 +43,10 @@ public class ChatMessageService {
     }
 
     @Transactional
-    public Long save(ChatMessageInput input) {
+    public ChatMessageOutput save(ChatMessageInput input) {
         ChatMessageEntity entity = this.modelMapper.map(input, ChatMessageEntity.class);
 
-        return this.chatMessageRepository.save(entity);
+        return this.modelMapper.map(this.chatMessageRepository.saveAndGetEntity(entity), ChatMessageOutput.class);
     }
 
     @Transactional

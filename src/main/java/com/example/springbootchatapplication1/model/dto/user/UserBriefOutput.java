@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 public class UserBriefOutput {
     private Long id;
+    private String name;
+    private String family;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdateAt;
     private String username;

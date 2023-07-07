@@ -1,5 +1,6 @@
 package com.example.springbootchatapplication1.model.dto.chat;
 
+import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageOutput;
 import com.example.springbootchatapplication1.model.entity.relational.ChatMessageEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,5 +15,5 @@ public class ChatOutput {
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdateAt;
     private String title;
-    private List<ChatMessageEntity> messages;
+    private List<ChatMessageOutput> messages;
 }

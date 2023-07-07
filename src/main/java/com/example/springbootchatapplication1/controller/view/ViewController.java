@@ -29,6 +29,13 @@ public class ViewController {
         return "/pub/user/user";
     }
 
+    /****************************************************user*********************************************************/
+
+    @GetMapping("/user/chat/chat/{title}")
+    public String goToChat(@PathVariable(name = "title") String title) {
+        return "/user/chat/chat";
+    }
+
     /****************************************************admin*********************************************************/
     @GetMapping("/adm/")
     public String goToAdmIndex() {
@@ -59,4 +66,6 @@ public class ViewController {
     public String goToAdmMessagingCreate() {
         return "/adm/messaging/create";
     }
+
+
 }

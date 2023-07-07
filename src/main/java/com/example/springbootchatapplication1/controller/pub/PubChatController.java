@@ -32,6 +32,12 @@ public class PubChatController {
         return new ResponseEntity<>(this.chatService.getById(id), HttpStatus.OK);
     }
 
+    @Operation(summary = "Get chat by title", description = "Get chat by title")
+    @GetMapping(path = "/title/{title}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ChatOutput> getByTitle(@PathVariable(name = "title") String title) {
+        return new ResponseEntity<>(this.chatService.getByTitle(title), HttpStatus.OK);
+    }
+
     @Operation(summary = "Get All chats", description = "Get All chats")
     @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ChatOutput>> getAll() {

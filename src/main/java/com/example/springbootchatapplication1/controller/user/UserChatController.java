@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,14 +29,14 @@ public class UserChatController {
     @Operation(summary = "Create new chat", description = "Create new chat")
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> save(@Valid @RequestBody ChatInput input,
-                                     @AuthenticationPrincipal Principal principal) {
+                                     @AuthenticationPrincipal Authentication authentication) {
         return new ResponseEntity<>(this.chatService.save(input), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Update chat by id", description = "Update chat by id")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ChatOutput> update(@PathVariable(name = "id") Long id, @Valid @RequestBody ChatInput input,
-                                             @AuthenticationPrincipal Principal principal) {
+                                             @AuthenticationPrincipal Authentication authentication) {
         return new ResponseEntity<>(this.chatService.update(id, input), HttpStatus.OK);
     }
 

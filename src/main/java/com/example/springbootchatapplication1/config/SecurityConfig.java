@@ -30,7 +30,8 @@ public class SecurityConfig {
 
         //todo : admin
         http.authorizeHttpRequests((request) -> {
-            request.requestMatchers("/view/pub/**" ,
+            request.requestMatchers(
+                            "/view/pub/**",
                             "/error/**",
                             "/uploadedFiles/pub/**", "/styles/**", "/js/**",
                             "/", "/index",
@@ -42,7 +43,7 @@ public class SecurityConfig {
             form.loginPage("/view/pub/user/login").successForwardUrl("/").permitAll();
         });
 
-        http.logout((logout)->{
+        http.logout((logout) -> {
             logout.logoutUrl("/logout");
         });
 

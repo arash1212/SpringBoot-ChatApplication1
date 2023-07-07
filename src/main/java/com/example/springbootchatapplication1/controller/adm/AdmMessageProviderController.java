@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,27 +30,27 @@ public class AdmMessageProviderController {
     @Operation(summary = "Get messageProvider by id", description = "Get messageProvider by id")
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MessageProviderOutput> getById(@PathVariable(name = "id") Long id,
-                                                         @AuthenticationPrincipal Principal principal) {
+                                                         @AuthenticationPrincipal Authentication authentication) {
         return new ResponseEntity<>(this.messageProviderService.getById(id), HttpStatus.OK);
     }
 
     @Operation(summary = "Get All messageProviders", description = "Get All messageProviders")
     @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<MessageProviderOutput>> getAll(@AuthenticationPrincipal Principal principal) {
+    public ResponseEntity<List<MessageProviderOutput>> getAll(@AuthenticationPrincipal Authentication authentication) {
         return new ResponseEntity<>(this.messageProviderService.getAll(), HttpStatus.OK);
     }
 
     @Operation(summary = "Get messageProvider by name", description = "Get messageProvider by name")
     @GetMapping(path = "/by-title", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MessageProviderOutput> getByName(@RequestParam(name = "title") String title,
-                                                           @AuthenticationPrincipal Principal principal) {
+                                                           @AuthenticationPrincipal Authentication authentication) {
         return new ResponseEntity<>(this.messageProviderService.getByTitle(title), HttpStatus.OK);
     }
 
     @Operation(summary = "Create new messageProvider", description = "Create new messageProvider")
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Long> save(@Valid @RequestBody MessageProviderInput input,
-                                     @AuthenticationPrincipal Principal principal) {
+                                     @AuthenticationPrincipal Authentication authentication) {
         return new ResponseEntity<>(this.messageProviderService.save(input), HttpStatus.OK);
     }
 
@@ -57,7 +58,7 @@ public class AdmMessageProviderController {
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MessageProviderOutput> update(@PathVariable(name = "id") Long id,
                                                         @Valid @RequestBody MessageProviderInput input,
-                                                        @AuthenticationPrincipal Principal principal) {
+                                                        @AuthenticationPrincipal Authentication authentication) {
         return new ResponseEntity<>(this.messageProviderService.update(id, input), HttpStatus.OK);
     }
 

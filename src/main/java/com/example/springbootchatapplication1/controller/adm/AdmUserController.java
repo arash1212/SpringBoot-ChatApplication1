@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class AdmUserController {
 
     @Operation(summary = "Get All users", description = "Get All users")
     @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserOutput>> getAll(@AuthenticationPrincipal Principal principal) {
+    public ResponseEntity<List<UserOutput>> getAll(@AuthenticationPrincipal Authentication authentication) {
         return new ResponseEntity<>(this.userService.getAll(), HttpStatus.OK);
     }
 
@@ -33,13 +34,13 @@ public class AdmUserController {
     @PatchMapping(path = "/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserOutput> assignAuthority(@PathVariable(name = "userId") Long userId,
                                                       @RequestBody List<Long> authorityIds,
-                                                      @AuthenticationPrincipal Principal principal) {
+                                                      @AuthenticationPrincipal Authentication authentication) {
         return new ResponseEntity<>(this.userService.assignAuthority(userId, authorityIds), HttpStatus.OK);
     }
 
     @Operation(summary = "Disable user account", description = "Disable user account")
     @PatchMapping(path = "/disable/{id}")
-    public void disable(@PathVariable(name = "id") Long id, @AuthenticationPrincipal Principal principal) {
+    public void disable(@PathVariable(name = "id") Long id, @AuthenticationPrincipal Authentication authentication) {
         this.userService.disable(id);
     }
 }

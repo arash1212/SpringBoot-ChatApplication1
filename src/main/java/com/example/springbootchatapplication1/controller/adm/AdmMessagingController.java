@@ -5,11 +5,15 @@ import com.example.springbootchatapplication1.model.service.messaging.MessageSer
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
 
 @Tag(name = "Adm-Messaging")
 @Validated
@@ -21,7 +25,7 @@ public class AdmMessagingController {
     private MessageService messageService;
 
     @PostMapping(path = "/send")
-    public void sendEmail(@Valid @RequestBody MessageInput input) {
+    public void sendEmail(@Valid @RequestBody MessageInput input, @AuthenticationPrincipal Authentication authentication) {
         messageService.send(input);
     }
 }
