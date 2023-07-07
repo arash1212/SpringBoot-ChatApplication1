@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "CHAT", indexes = {
-        @Index(name = "CHAT_IDX_TITLE", columnList = "TITLE")
+//        @Index(name = "CHAT_IDX_TITLE", columnList = "TITLE")
 })
 @Entity(name = "CHAT")
 @EntityListeners(AuditingEntityListener.class)

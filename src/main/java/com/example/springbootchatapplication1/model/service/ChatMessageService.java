@@ -3,6 +3,7 @@ package com.example.springbootchatapplication1.model.service;
 import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageInput;
 import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageOutput;
 import com.example.springbootchatapplication1.model.entity.relational.ChatMessageEntity;
+import com.example.springbootchatapplication1.model.entity.relational.UserEntity;
 import com.example.springbootchatapplication1.model.repository.ChatMessageRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -19,11 +20,13 @@ import java.util.stream.Collectors;
 public class ChatMessageService {
 
     private ChatMessageRepository chatMessageRepository;
+    private UserService userService;
     private ModelMapper modelMapper;
 
     @Autowired
-    public ChatMessageService(ChatMessageRepository chatMessageRepository, ModelMapper modelMapper) {
+    public ChatMessageService(ChatMessageRepository chatMessageRepository, UserService userService, ModelMapper modelMapper) {
         this.chatMessageRepository = chatMessageRepository;
+        this.userService = userService;
         this.modelMapper = modelMapper;
     }
 
@@ -46,7 +49,10 @@ public class ChatMessageService {
     public ChatMessageOutput save(ChatMessageInput input) {
         ChatMessageEntity entity = this.modelMapper.map(input, ChatMessageEntity.class);
 
-        return this.modelMapper.map(this.chatMessageRepository.saveAndGetEntity(entity), ChatMessageOutput.class);
+        ChatMessageEntity newEntity = this.chatMessageRepository.saveAndGetEntity(entity);
+        UserEntity creator = this.userService.getEntity(newEntity.getCreatorId());
+        newEntity.setCreator(creator);
+        return this.modelMapper.map(newEntity, ChatMessageOutput.class);
     }
 
     @Transactional
@@ -68,4 +74,8 @@ public class ChatMessageService {
         }
         this.chatMessageRepository.delete(optionalEntity.get());
     }
+
+    /******************************************************************************************************************/
+
+
 }

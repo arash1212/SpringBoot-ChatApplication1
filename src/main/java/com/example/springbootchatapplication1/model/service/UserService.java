@@ -156,4 +156,10 @@ public class UserService {
         this.userRepository.update(id, params);
     }
 
+    /******************************************************************************************************************/
+
+    public UserEntity getEntity(Long id) {
+        return this.userRepository.findById(id).get();
+    }
+
 }

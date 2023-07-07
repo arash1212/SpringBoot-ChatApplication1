@@ -80,7 +80,8 @@ function send(message) {
 function printMessage(message) {
     let json = JSON.parse(JSON.parse(JSON.stringify(message.body)));
     console.log("received : " + json);
-    messageTextArea.append(json.text + "\n");
+    // messageTextArea.append(json.text + "\n");
+    messageTextArea.append(json.creator.id + " - " + json.creator.name + " " + json.creator.family + " گفته :  " + json.text + "\n");
 }
 
 function showChatForm() {
@@ -96,6 +97,6 @@ function hideChatForm() {
 function fillMessagesTextArea(data) {
     console.log("data : " + data);
     for (let obj in data.messages) {
-        messageTextArea.append(data.messages[obj].creator.id + " - " + data.messages[obj].creator.name + " " +  data.messages[obj].creator.family + " گفته :  " + data.messages[obj].text + "\n");
+        messageTextArea.append(data.messages[obj].creator.id + " - " + data.messages[obj].creator.name + " " + data.messages[obj].creator.family + " گفته :  " + data.messages[obj].text + "\n");
     }
 }
