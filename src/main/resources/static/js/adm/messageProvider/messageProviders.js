@@ -7,18 +7,20 @@ let DELETE = "/adm/message/provider/";
 // ++++++++++++++++++++++++++++++++++++Refresh++++++++++++++++++++++++++++++++++++++++++
 function refreshTable() {
     (async () => {
-        fetch(GET_ALL, {
+        let response = fetch(GET_ALL, {
             method: "GET", headers: {}
         }).then(response => response.json())
             .then(json => {
                 fillTable(JSON.parse(JSON.stringify(json)));
             });
+
+        // let responseCode = JSON.stringify(response.status);
+        // if (responseCode === '400') {
+        //     console.log('error in retrieving data');
+        // }
     })();
 
-    let responseCode = JSON.stringify(response.status);
-    if (responseCode === '400') {
-        console.log('error in retrieving data');
-    }
+
 }
 
 // ++++++++++++++++++++++++++++++FilleTableWithData+++++++++++++++++++++++++++++++++++++

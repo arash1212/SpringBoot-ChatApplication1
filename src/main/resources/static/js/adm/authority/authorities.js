@@ -14,12 +14,12 @@ function refreshTable() {
             .then(json => {
                 fillTable(JSON.parse(JSON.stringify(json)));
             });
-    })();
 
-    let responseCode = JSON.stringify(response.status);
-    if (responseCode === '400') {
-        console.log('error in retrieving data');
-    }
+        // let responseCode = JSON.stringify(response.status);
+        // if (responseCode === '400') {
+        //     console.log('error in retrieving data');
+        // }
+    })();
 }
 
 // ++++++++++++++++++++++++++++++FilleTableWithData+++++++++++++++++++++++++++++++++++++

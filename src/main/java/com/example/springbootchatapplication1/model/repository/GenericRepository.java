@@ -84,7 +84,6 @@ public abstract class GenericRepository<T extends IEntity> {
     }
 
     public List<T> selectQuery(String query, Map<String, Object> params) {
-        ;
         TypedQuery<T> typedQuery = (TypedQuery<T>) this.entityManager.createQuery(query);
         for (Map.Entry entry : params.entrySet()) {
             typedQuery.setParameter(String.valueOf(entry.getKey()), entry.getValue());

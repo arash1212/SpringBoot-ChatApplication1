@@ -4,6 +4,7 @@ import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageI
 import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageOutput;
 import com.example.springbootchatapplication1.model.service.ChatMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.Authentication;
@@ -17,9 +18,9 @@ public class WsChatController {
     @Autowired
     private ChatMessageService chatMessageService;
 
-    @MessageMapping("/chat")
-    @SendTo("/topic/chat")
-    public ChatMessageOutput chat(ChatMessageInput input, @AuthenticationPrincipal Authentication authentication) {
+    @MessageMapping("/chat/{chatId}")
+    @SendTo("/topic/chat/{chatId}")
+    public ChatMessageOutput chat(ChatMessageInput input, @DestinationVariable("chatId") Long chatId, @AuthenticationPrincipal Authentication authentication) {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return this.chatMessageService.save(input);
     }

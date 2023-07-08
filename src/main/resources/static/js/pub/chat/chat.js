@@ -10,24 +10,33 @@ hideChatForm();
 resultDiv.innerText = 'در حال اتصال به سرور';
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++SOCK-JS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-let socksJs = new SockJS("/chat");
-let stompJs = Stomp.over(socksJs);
+let socksJs
+let stompJs;
 
-socksJs.onclose = () => {
-    stompJs.disconnect();
-    hideChatForm();
-}
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++STOMP-JS+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-stompJs.connect({}, function (frame) {
-    console.log('Connected: ' + frame);
-    showChatForm();
+function connect(chatId) {
+    socksJs = new SockJS("/chat");
+    stompJs = Stomp.over(socksJs);
+    socksJs.onclose = () => {
+        stompJs.disconnect();
+        hideChatForm();
+    }
 
-    stompJs.subscribe('/topic/chat', function (message) {
-        printMessage(message);
+
+    console.log('Connecting Chat : ' + chatId);
+    stompJs.connect({}, function (frame) {
+        console.log('Connected: ' + frame);
+        showChatForm();
+
+        console.log('subscribing to : /topic/chat/' + chatId);
+        stompJs.subscribe('/topic/chat/' + chatId, function (message) {
+            console.log('subscribed to : /topic/chat/' + chatId);
+            printMessage(message);
+        });
     });
-});
+}
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++GetChat++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -37,26 +46,36 @@ let chat = {
 
 let chatId = -1;
 let chatTitle = '';
+let data;
 
-(async () => {
-    let arr = window.location.pathname.split('/');
-    chatTitle = arr[arr.length - 1];
+function getChat() {
+    (async () => {
+        let arr = window.location.pathname.split('/');
+        chatTitle = arr[arr.length - 1];
 
-    console.log(arr);
+        console.log(arr);
 
-    if (chatTitle == null || chatTitle === '') {
-        return;
-    }
+        if (chatTitle == null || chatTitle === '') {
+            return;
+        }
 
-    let response = await fetch("/pub/chat/title/" + chatTitle, {
-        method: "GET"
-    }).then(response => response.json())
-        .then(json => {
-            console.log(json);
-            fillMessagesTextArea(JSON.parse(JSON.stringify(json)));
-        });
+        let response = await fetch("/pub/chat/title/" + chatTitle, {
+            method: "GET"
+        }).then(response => response.json())
+            .then(json => {
+                console.log(json);
+                data = JSON.parse(JSON.stringify(json));
+                chatId = data.id;
 
-})();
+                fillMessagesTextArea(data);
+            });
+
+        connect(1);
+    })();
+}
+
+getChat();
+
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 chatFormSubmitButton.onclick = (e) => {
@@ -65,15 +84,16 @@ chatFormSubmitButton.onclick = (e) => {
     //todo chatId
     let message = {
         text: "",
-        chatId: 1
+        chatId: -1
     };
 
     message.text = messageInput.value;
-    send(message);
+    message.chatId = chatId;
+    send(message, message.chatId);
 }
 
-function send(message) {
-    stompJs.send("/app/chat", {}, JSON.stringify(message));
+function send(message, chatId) {
+    stompJs.send("/app/chat/" + chatId, {}, JSON.stringify(message));
     messageInput.value = '';
 }
 
