@@ -1,10 +1,10 @@
 package com.example.springbootchatapplication1.model.service;
 
+import com.example.springbootchatapplication1.exception.CustomException;
 import com.example.springbootchatapplication1.model.dto.chat.ChatInput;
 import com.example.springbootchatapplication1.model.dto.chat.ChatOutput;
 import com.example.springbootchatapplication1.model.entity.relational.ChatEntity;
 import com.example.springbootchatapplication1.model.repository.ChatRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class ChatService {
     public ChatOutput getById(Long id) {
         Optional<ChatEntity> optionalEntity = this.chatRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         return this.modelMapper.map(optionalEntity.get(), ChatOutput.class);
@@ -39,7 +39,7 @@ public class ChatService {
         title = title.toUpperCase();
         Optional<ChatEntity> optionalEntity = this.chatRepository.getByTitle(title);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         return this.modelMapper.map(optionalEntity.get(), ChatOutput.class);
@@ -63,7 +63,7 @@ public class ChatService {
     public ChatOutput update(Long id, ChatInput input) {
         Optional<ChatEntity> optionalEntity = this.chatRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         this.modelMapper.map(input, optionalEntity.get());
@@ -74,7 +74,7 @@ public class ChatService {
     public void delete(Long id) {
         Optional<ChatEntity> optionalEntity = this.chatRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
         this.chatRepository.delete(optionalEntity.get());
     }

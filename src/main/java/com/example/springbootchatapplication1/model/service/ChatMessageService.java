@@ -1,11 +1,11 @@
 package com.example.springbootchatapplication1.model.service;
 
+import com.example.springbootchatapplication1.exception.CustomException;
 import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageInput;
 import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageOutput;
 import com.example.springbootchatapplication1.model.entity.relational.ChatMessageEntity;
 import com.example.springbootchatapplication1.model.entity.relational.UserEntity;
 import com.example.springbootchatapplication1.model.repository.ChatMessageRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class ChatMessageService {
     public ChatMessageOutput getById(Long id) {
         Optional<ChatMessageEntity> optionalEntity = this.chatMessageRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         return this.modelMapper.map(optionalEntity.get(), ChatMessageOutput.class);
@@ -59,7 +59,7 @@ public class ChatMessageService {
     public ChatMessageOutput update(Long id, ChatMessageInput input) {
         Optional<ChatMessageEntity> optionalEntity = this.chatMessageRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         this.modelMapper.map(input, optionalEntity.get());
@@ -70,7 +70,7 @@ public class ChatMessageService {
     public void delete(Long id) {
         Optional<ChatMessageEntity> optionalEntity = this.chatMessageRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
         this.chatMessageRepository.delete(optionalEntity.get());
     }

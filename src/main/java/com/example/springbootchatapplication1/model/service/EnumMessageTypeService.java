@@ -1,9 +1,9 @@
 package com.example.springbootchatapplication1.model.service;
 
+import com.example.springbootchatapplication1.exception.CustomException;
 import com.example.springbootchatapplication1.model.dto.messageType.EnumMessageTypeOutput;
 import com.example.springbootchatapplication1.model.entity.relational.enums.entity.EnumMessageTypeEntity;
 import com.example.springbootchatapplication1.model.repository.EnumMessageTypeRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class EnumMessageTypeService {
     public EnumMessageTypeOutput getById(Long id) {
         Optional<EnumMessageTypeEntity> optionalEntity = this.enumMessageTypeRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         return this.modelMapper.map(optionalEntity.get(), EnumMessageTypeOutput.class);

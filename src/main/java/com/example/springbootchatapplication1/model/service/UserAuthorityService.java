@@ -1,11 +1,10 @@
 package com.example.springbootchatapplication1.model.service;
 
+import com.example.springbootchatapplication1.exception.CustomException;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityInput;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityOutput;
 import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
-import com.example.springbootchatapplication1.model.entity.relational.UserEntity;
 import com.example.springbootchatapplication1.model.repository.UserAuthorityRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class UserAuthorityService {
     public UserAuthorityOutput getById(Long id) {
         Optional<UserAuthorityEntity> optionalEntity = this.authorityRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         return this.modelMapper.map(optionalEntity.get(), UserAuthorityOutput.class);
@@ -47,7 +46,7 @@ public class UserAuthorityService {
     public UserAuthorityOutput getByName(String authorityName) {
         Optional<UserAuthorityEntity> optionalEntity = this.authorityRepository.find(Map.of("authority", authorityName));
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         return this.modelMapper.map(optionalEntity.get(), UserAuthorityOutput.class);
@@ -59,7 +58,7 @@ public class UserAuthorityService {
 
         Optional<UserAuthorityEntity> optionalOldEntity = this.authorityRepository.getByName(input.getAuthority());
         if (!optionalOldEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(2);
         }
         return this.authorityRepository.save(entity);
     }
@@ -68,7 +67,7 @@ public class UserAuthorityService {
     public UserAuthorityOutput update(Long id, UserAuthorityInput input) {
         Optional<UserAuthorityEntity> optionalEntity = this.authorityRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         this.modelMapper.map(input, optionalEntity.get());
@@ -79,7 +78,7 @@ public class UserAuthorityService {
     public void delete(Long id) {
         Optional<UserAuthorityEntity> optionalEntity = this.authorityRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
         this.authorityRepository.delete(optionalEntity.get());
     }

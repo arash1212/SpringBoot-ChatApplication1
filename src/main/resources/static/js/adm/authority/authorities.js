@@ -7,12 +7,19 @@ let DELETE = "/adm/user/authority/";
 // ++++++++++++++++++++++++++++++++++++Refresh++++++++++++++++++++++++++++++++++++++++++
 
 function refreshTable() {
-    fetch(GET_ALL, {
-        method: "GET", headers: {}
-    }).then(response => response.json())
-        .then(json => {
-            fillTable(JSON.parse(JSON.stringify(json)));
-        });
+    (async () => {
+        let response = await fetch(GET_ALL, {
+            method: "GET", headers: {}
+        }).then(response => response.json())
+            .then(json => {
+                fillTable(JSON.parse(JSON.stringify(json)));
+            });
+    })();
+
+    let responseCode = JSON.stringify(response.status);
+    if (responseCode === '400') {
+        console.log('error in retrieving data');
+    }
 }
 
 // ++++++++++++++++++++++++++++++FilleTableWithData+++++++++++++++++++++++++++++++++++++
@@ -49,6 +56,8 @@ function deleteItem(id) {
     let responseCode = JSON.stringify(response.status);
     if (responseCode === '200') {
         console.log('item removed');
+    } else if (responseCode === '400') {
+        console.log('bad request');
     }
 }
 

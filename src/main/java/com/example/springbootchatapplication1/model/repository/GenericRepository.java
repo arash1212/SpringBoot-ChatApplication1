@@ -21,7 +21,7 @@ public abstract class GenericRepository<T extends IEntity> {
         return t.getId();
     }
 
-    public T saveAndGetEntity(T t){
+    public T saveAndGetEntity(T t) {
         this.entityManager.persist(t);
         return t;
     }
@@ -37,7 +37,7 @@ public abstract class GenericRepository<T extends IEntity> {
 
     public Optional<T> findById(Long id) {
         T t = this.entityManager.find(this.getDomainClass(), id);
-        return Optional.of(t);
+        return t != null ? Optional.of(t) : Optional.empty();
     }
 
     public void update(Long id, Map<String, Object> updateParams) {
@@ -83,7 +83,8 @@ public abstract class GenericRepository<T extends IEntity> {
         return query.getResultList();
     }
 
-    public List<T> selectQuery(String query, Map<String, Object> params) {;
+    public List<T> selectQuery(String query, Map<String, Object> params) {
+        ;
         TypedQuery<T> typedQuery = (TypedQuery<T>) this.entityManager.createQuery(query);
         for (Map.Entry entry : params.entrySet()) {
             typedQuery.setParameter(String.valueOf(entry.getKey()), entry.getValue());

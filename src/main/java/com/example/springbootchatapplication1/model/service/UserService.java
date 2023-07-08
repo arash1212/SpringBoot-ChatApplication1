@@ -1,5 +1,6 @@
 package com.example.springbootchatapplication1.model.service;
 
+import com.example.springbootchatapplication1.exception.CustomException;
 import com.example.springbootchatapplication1.model.dto.user.UserInput;
 import com.example.springbootchatapplication1.model.dto.user.UserLoginInput;
 import com.example.springbootchatapplication1.model.dto.user.UserLoginOut;
@@ -41,7 +42,7 @@ public class UserService {
     public UserOutput getById(Long id) {
         Optional<UserEntity> optionalEntity = this.userRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         return this.modelMapper.map(optionalEntity.get(), UserOutput.class);
@@ -56,7 +57,7 @@ public class UserService {
     public UserOutput getByUsername(String username) {
         Optional<UserEntity> optionalEntity = this.userRepository.find(Map.of("username", username));
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         return this.modelMapper.map(optionalEntity.get(), UserOutput.class);
@@ -67,9 +68,8 @@ public class UserService {
         UserEntity entity = this.modelMapper.map(input, UserEntity.class);
 
         Optional<UserEntity> optionalOldEntity = this.userRepository.getByUsername(input.getUsername());
-        //Todo excption ha
         if (!optionalOldEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(3);
         }
 
         entity.setEnabled(false);
@@ -87,7 +87,7 @@ public class UserService {
     public UserOutput update(Long id, UserInput input) {
         Optional<UserEntity> optionalEntity = this.userRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         this.modelMapper.map(input, optionalEntity.get());
@@ -98,7 +98,7 @@ public class UserService {
     public void delete(Long id) {
         Optional<UserEntity> optionalEntity = this.userRepository.findById(id);
         if (optionalEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
         this.userRepository.delete(optionalEntity.get());
     }
@@ -107,7 +107,7 @@ public class UserService {
     public UserOutput assignAuthority(Long userId, List<Long> authorityIds) {
         Optional<UserEntity> optionalUserEntity = this.userRepository.findById(userId);
         if (optionalUserEntity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         List<UserAuthorityEntity> authorityEntities = this.authorityService.getEntitiesById(authorityIds);
@@ -134,7 +134,7 @@ public class UserService {
     public void enable(Long id) {
         Optional<UserEntity> entity = this.userRepository.findById(id);
         if (entity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         Map<String, Object> params = new HashMap<>();
@@ -147,7 +147,7 @@ public class UserService {
     public void disable(Long id) {
         Optional<UserEntity> entity = this.userRepository.findById(id);
         if (entity.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new CustomException(1);
         }
 
         Map<String, Object> params = new HashMap<>();

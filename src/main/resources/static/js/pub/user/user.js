@@ -37,6 +37,11 @@ let userInfo = {
             userInfo.profilePicture = json.profilePicture;
         });
 
+
+    let responseCode = JSON.stringify(response.status);
+    if (responseCode === '400') {
+        console.log(JSON.parse(JSON.stringify(json)).message);
+    }
     usernameInput.innerText = 'پروفایل : ' + userInfo.username;
     userProfileImage.src = userInfo.profilePicture;
 })();
