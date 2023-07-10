@@ -5,7 +5,7 @@ import com.example.springbootchatapplication1.model.dto.chat.ChatInput;
 import com.example.springbootchatapplication1.model.dto.chat.ChatOutput;
 import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageOutput;
 import com.example.springbootchatapplication1.model.entity.relational.ChatEntity;
-import com.example.springbootchatapplication1.model.repository.ChatRepository;
+import com.example.springbootchatapplication1.model.repository.relational.ChatRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

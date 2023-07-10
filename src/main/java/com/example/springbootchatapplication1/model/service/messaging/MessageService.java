@@ -24,7 +24,7 @@ public class MessageService {
         }
     }
 
-    private void sendEmail(MessageInput input) {
+    public void sendEmail(MessageInput input) {
         IMessageProvider messageProvider = this.getProvider();
         if (messageProvider != null) {
             messageProvider.sendEmail(input);

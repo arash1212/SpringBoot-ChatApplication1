@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 @Setter
 public class UserBriefOutput {
     private Long id;
+    private String username;
+    private String email;
     private String name;
     private String family;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdateAt;
-    private String username;
     private Boolean accountNonExpired;
     private Boolean accountNonLocked;
     private Boolean credentialsNonExpired;

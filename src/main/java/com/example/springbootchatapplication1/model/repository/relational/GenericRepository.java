@@ -1,4 +1,4 @@
-package com.example.springbootchatapplication1.model.repository;
+package com.example.springbootchatapplication1.model.repository.relational;
 
 import com.example.springbootchatapplication1.model.entity.interfaces.IEntity;
 import jakarta.persistence.*;

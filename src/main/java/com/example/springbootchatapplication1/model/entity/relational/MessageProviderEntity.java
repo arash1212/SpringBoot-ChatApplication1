@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @JsonIdentityInfo(property = "id", generator = ObjectIdGenerators.PropertyGenerator.class)
 public class MessageProviderEntity implements IEntity {
     @Id
-    @SequenceGenerator(name = "MessageProviderSequence", sequenceName = "MESSAGE_PROVIDER_SEQ", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "MessageProviderSequence", sequenceName = "MESSAGE_PROVIDER_SEQ", initialValue = 1000, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MessageProviderSequence")
     @Column(name = "ID")
     private Long id;

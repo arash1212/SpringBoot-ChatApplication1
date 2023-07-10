@@ -31,12 +31,15 @@ public class SecurityConfig {
         //todo : admin
         http.authorizeHttpRequests((request) -> {
             request.requestMatchers(
+//                            "/**",
                             "/view/pub/**",
                             "/error/**",
                             "/uploadedFiles/pub/**", "/styles/**", "/js/**",
                             "/", "/index",
                             "/pub/**", "/swagger-ui/**", "/api-docs", "/api-docs/**")
-                    .permitAll().anyRequest().authenticated();
+                    .permitAll()
+                    .requestMatchers("/user/**").hasAnyAuthority("admin", "user")
+                    .anyRequest().authenticated();
         });
 
         http.formLogin((form) -> {

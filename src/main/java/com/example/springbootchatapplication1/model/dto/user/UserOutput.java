@@ -14,6 +14,7 @@ import java.util.Set;
 public class UserOutput {
     private Long id;
     private String username;
+    private String email;
     //    private String password;
     private String name;
     private String family;

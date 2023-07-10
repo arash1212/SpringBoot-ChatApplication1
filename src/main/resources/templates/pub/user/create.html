@@ -18,6 +18,9 @@
         <label for="username">نام کاربری : </label> <br/>
         <input type="text" name="username" id="username" placeholder="نام کاربری" required/><br/>
 
+        <label for="email">ایمیل : </label> <br/>
+        <input type="email" name="email" id="email" placeholder="ایمیل" required/><br/>
+
         <label for="password">رمز عبور : </label> <br/>
         <input type="password" name="password" id="password" placeholder="رمز عبور" required/><br/>
         <label for="password-repeat">تکرار رمز عبور : </label> <br/>
@@ -31,15 +34,26 @@
 
         <label for="profilePictureFile">تصویر پروفایل : </label> <br/>
         <input type="file" name="profilePictureFile" id="profilePictureFile" placeholder="تصویر پروفایل" required/><br/>
-        <input type="button" id="upload-profile_picture_btn" name="upload-profile_picture_btn" th:value="آپلود"/> <br /><br />
-        <img th:src="@{/uploadedFiles/jpg/aa3cd343-d324-41f9-866a-f62e57e3d0c1.jpg}" id="img-profile-picture"/> <br/> <br/> <br/>
+        <input type="button" id="upload-profile_picture_btn" name="upload-profile_picture_btn" th:value="آپلود"/>
+        <br/><br/>
+        <img th:src="@{/uploadedFiles/jpg/aa3cd343-d324-41f9-866a-f62e57e3d0c1.jpg}" id="img-profile-picture"/> <br/>
+        <br/> <br/>
         <input type="button" value="ثبت" id="user-register-form-submit-btn">
         <!--        <input type="submit" value="ثبت">-->
     </form>
 
-    <div id="error-message-div" style="color: red;"></div> <br /><br /><br />
+    <div id="error-message-div" style="color: red;"></div>
+    <br/><br/><br/>
 
 
+</div>
+
+<div id="activation-code-div">
+    <form id="activation-code-form">
+        <label for="otp">کد فعالسازی ارسال شده به ایمیل را وارد کنید :</label> <br />
+        <input type="text" id="otp" name="otp" required/><br /><br />
+        <input type="button" value="تایید" id="activation-code-form-btn"/>
+    </form>
 </div>
 
 <div id="register-done-message-div">

@@ -48,6 +48,11 @@ body {
     width: 20%;
 }
 
+#activation-code-div{
+    margin-right: 5%;
+    margin-top: 5%;
+}
+
 /************************User-Login**************************/
 
 #user-login-div {

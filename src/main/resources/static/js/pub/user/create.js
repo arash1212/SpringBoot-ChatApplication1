@@ -1,6 +1,7 @@
 let userRegisterDiv = document.getElementById('user-register-div');
 let submitBtn = document.getElementById("user-register-form-submit-btn");
 let usernameInput = document.getElementById('username');
+let emailInput = document.getElementById('email');
 let passwordInput = document.getElementById('password');
 let passwordRepeatInput = document.getElementById('password-repeat');
 let nameInput = document.getElementById('name');
@@ -11,11 +12,21 @@ let profilePictureFileInput = document.getElementById('profilePictureFile');
 let profilePictureImg = document.getElementById('img-profile-picture');
 let registerForm = document.getElementById('register-form');
 
+///
+let activationCodeDiV = document.getElementById('activation-code-div');
+let activationCodeForm = document.getElementById('activation-code-form');
+let otpInput = document.getElementById('otp');
+let activationFormButton = document.getElementById('activation-code-form-btn');
+///
+
 let registerObj = {
-    username: "", password: "", name: "", family: "", profilePicture: ""
+    username: "", password: "", name: "", family: "", profilePicture: "", email: ""
 };
 
 registerDoneMessageDiv.hidden = true;
+
+//activation
+let userId = -1;
 
 submitBtn.onclick = function (e) {
     if (!validateInputs()) {
@@ -23,28 +34,34 @@ submitBtn.onclick = function (e) {
     }
 
     //body
+    registerObj.email = emailInput.value;
     registerObj.username = usernameInput.value;
     registerObj.password = passwordInput.value;
     registerObj.name = nameInput.value;
     registerObj.family = familyInput.value;
-
+    let response
     (async () => {
-        let response = await fetch("/pub/user/", {
+        await fetch("/pub/user/", {
             method: "POST", headers: {
                 Accept: "application/json", "Content-Type": "application/json"
             }, body: JSON.stringify(registerObj)
-        });
+        }).then(resp => {
+            response = resp;
+            return resp.json();
+        }).then(json => userId = json);
 
         let responseCode = JSON.stringify(response.status);
         console.log(responseCode);
         if (responseCode === '200') {
             usernameInput.value = '';
+            emailInput.value = '';
             passwordInput.value = '';
             nameInput.value = '';
             familyInput.value = '';
             profilePictureFileInput.value = '';
             userRegisterDiv.hidden = true;
-            registerDoneMessageDiv.hidden = false;
+            registerDoneMessageDiv.hidden = true;
+            activationCodeDiV.hidden = false;
         } else if (responseCode === '500') {
             errorMessageDiv.innerText = 'خطا سرور'
         } else {
@@ -77,7 +94,7 @@ function uploadFile(fileInput, subDirectories) {
     fileFormData.set("file", file);
     fileFormData.set("subDirectories", subDirectories);
 
-    let response;
+    let uploadResponse;
     (async () => {
         await fetch("/pub/files/upload", {
             method: "POST", body: fileFormData
@@ -86,7 +103,7 @@ function uploadFile(fileInput, subDirectories) {
             .then(text => {
                 profilePictureImg.setAttribute('src', text);
                 registerObj.profilePicture = text;
-                response = text;
+                uploadResponse = text;
                 return text;
             });
     })();
@@ -96,3 +113,48 @@ let uploadProfilePictureBtn = document.getElementById('upload-profile_picture_bt
 uploadProfilePictureBtn.onclick = () => {
     uploadFile(profilePictureFileInput, "/pub/profilePictures/");
 };
+
+/*************************************************ACTIVATION***********************************************************/
+activationCodeDiV.hidden = true;
+
+let activationObj = {
+    otp: "",
+    userId: -1
+};
+
+activationFormButton.onclick = (e) => {
+    e.preventDefault();
+
+    activationObj.userId = userId;
+    activationObj.otp = otpInput.value;
+
+    console.log("otp : " + activationObj.otp)
+    console.log('activationObj : ' + JSON.stringify(activationObj));
+    let activationResponse;
+    (async () => {
+        activationResponse = await fetch("/pub/user/enable", {
+            method: "POST", headers: {
+                Accept: "application/json", "Content-Type": "application/json"
+            }, body: JSON.stringify(activationObj)
+        });
+
+        let responseCode = JSON.stringify(activationResponse.status);
+        console.log('activation response : ' + responseCode);
+        if (responseCode === '200') {
+            activationCodeDiV.hidden = true;
+            registerDoneMessageDiv.hidden = false;
+            registerDoneMessageDiv.style.color = 'green';
+            registerDoneMessageDiv.innerText = 'حساب کاربری با موفقیت فعال شد.'
+        } else if (responseCode === '400') {
+            registerDoneMessageDiv.hidden = false;
+            registerDoneMessageDiv.style.color = 'red';
+            registerDoneMessageDiv.innerText = 'داده های ارسالی معتبر نمی باشد'
+        } else if (responseCode === '500') {
+            registerDoneMessageDiv.hidden = false;
+            registerDoneMessageDiv.style.color = 'red';
+            registerDoneMessageDiv.innerText = 'خطای سرور'
+        }
+        // .then(e => e.text())
+        // .then(text => {});
+    })();
+}

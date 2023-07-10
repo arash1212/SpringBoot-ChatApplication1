@@ -1,11 +1,9 @@
-package com.example.springbootchatapplication1.model.repository;
+package com.example.springbootchatapplication1.model.repository.relational;
 
 import com.example.springbootchatapplication1.model.entity.relational.ChatEntity;
-import com.example.springbootchatapplication1.model.entity.relational.ChatMessageEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Repository
 public class ChatRepository extends GenericRepository<ChatEntity> {

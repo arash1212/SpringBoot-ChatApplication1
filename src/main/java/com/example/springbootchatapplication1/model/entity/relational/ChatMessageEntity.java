@@ -24,7 +24,7 @@ import java.util.Date;
 @JsonIdentityInfo(property = "id", generator = ObjectIdGenerators.PropertyGenerator.class)
 public class ChatMessageEntity implements IEntity {
     @Id
-    @SequenceGenerator(name = "ChatMessageSequence", sequenceName = "CHAT_MESSAGE_SEQ", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "ChatMessageSequence", sequenceName = "CHAT_MESSAGE_SEQ", initialValue = 1000, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ChatMessageSequence")
     @Column(name = "ID")
     private Long id;

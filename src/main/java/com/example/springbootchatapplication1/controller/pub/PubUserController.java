@@ -1,9 +1,6 @@
 package com.example.springbootchatapplication1.controller.pub;
 
-import com.example.springbootchatapplication1.model.dto.user.UserInput;
-import com.example.springbootchatapplication1.model.dto.user.UserLoginInput;
-import com.example.springbootchatapplication1.model.dto.user.UserLoginOut;
-import com.example.springbootchatapplication1.model.dto.user.UserOutput;
+import com.example.springbootchatapplication1.model.dto.user.*;
 import com.example.springbootchatapplication1.model.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,9 +45,9 @@ public class PubUserController {
     }
 
     @Operation(summary = "Enable user account", description = "Enable user account")
-    @PatchMapping(path = "/enable/{id}")
-    public void enable(@PathVariable(name = "id") Long id) {
-        this.userService.enable(id);
+    @PostMapping(path = "/enable")
+    public void enable(@Valid @RequestBody UserActivationInput input) {
+        this.userService.enable(input);
     }
 
 }

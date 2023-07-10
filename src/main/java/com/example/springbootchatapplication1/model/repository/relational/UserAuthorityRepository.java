@@ -1,4 +1,4 @@
-package com.example.springbootchatapplication1.model.repository;
+package com.example.springbootchatapplication1.model.repository.relational;
 
 import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ public class UserAuthorityRepository extends GenericRepository<UserAuthorityEnti
 
     public Optional<UserAuthorityEntity> getByName(String authority) {
         Map<String, Object> params = new HashMap<>();
-        params.put("authority", authority);
+        params.put("authority", authority.toLowerCase());
 
         String query = "Select entity from USER_AUTHORITY AS entity where entity.authority=:authority";
         List<UserAuthorityEntity> authorityEntityList = super.selectQuery(query, params);

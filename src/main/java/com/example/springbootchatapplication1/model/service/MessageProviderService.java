@@ -4,7 +4,7 @@ import com.example.springbootchatapplication1.exception.CustomException;
 import com.example.springbootchatapplication1.model.dto.messageProvider.MessageProviderInput;
 import com.example.springbootchatapplication1.model.dto.messageProvider.MessageProviderOutput;
 import com.example.springbootchatapplication1.model.entity.relational.MessageProviderEntity;
-import com.example.springbootchatapplication1.model.repository.MessageProviderRepository;
+import com.example.springbootchatapplication1.model.repository.relational.MessageProviderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

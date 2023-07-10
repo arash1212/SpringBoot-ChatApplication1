@@ -18,6 +18,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<ExceptionOutput> handle(CustomException e) {
         String message = environment.getProperty("e." + e.getId());
         ExceptionOutput output = new ExceptionOutput(e.getId(), message);
+        System.out.println(e.getMessage());
         return new ResponseEntity<>(output, HttpStatus.BAD_REQUEST);
     }
 }

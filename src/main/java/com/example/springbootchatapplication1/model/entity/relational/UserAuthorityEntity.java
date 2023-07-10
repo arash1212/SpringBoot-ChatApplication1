@@ -26,7 +26,7 @@ import java.util.Set;
 @JsonIdentityInfo(property = "id", generator = ObjectIdGenerators.PropertyGenerator.class)
 public class UserAuthorityEntity implements IEntity, GrantedAuthority {
     @Id
-    @SequenceGenerator(name = "UserAuthoritySequence", sequenceName = "USER_AUTHORITY_SEQ", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "UserAuthoritySequence", sequenceName = "USER_AUTHORITY_SEQ", initialValue = 1000, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserAuthoritySequence")
     private Long id;
     @Basic
@@ -50,17 +50,17 @@ public class UserAuthorityEntity implements IEntity, GrantedAuthority {
 
     @Basic
     @CreatedBy
-    @Column(name = "CREATOR_ID", insertable = true, updatable = true, nullable = false)
+    @Column(name = "CREATOR_ID", insertable = true, updatable = true, nullable = true)
     private Long creatorId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CREATOR_ID", insertable = false, updatable = false, nullable = false)
+    @JoinColumn(name = "CREATOR_ID", insertable = false, updatable = false, nullable = true)
     private UserEntity creator;
     @Basic
     @LastModifiedBy
-    @Column(name = "LAST_MODIFIER_ID", insertable = true, updatable = true, nullable = false)
+    @Column(name = "LAST_MODIFIER_ID", insertable = true, updatable = true, nullable = true)
     private Long lastModifierId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LAST_MODIFIER_ID", insertable = false, updatable = false, nullable = false)
+    @JoinColumn(name = "LAST_MODIFIER_ID", insertable = false, updatable = false, nullable = true)
     private UserEntity lastModifier;
     /******************************************************************************************************************/
 }

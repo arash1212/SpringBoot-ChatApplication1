@@ -26,7 +26,7 @@ import java.util.Set;
 @JsonIdentityInfo(property = "id", generator = ObjectIdGenerators.PropertyGenerator.class)
 public class ChatEntity implements IEntity {
     @Id
-    @SequenceGenerator(name = "ChatSequence", sequenceName = "CHAT_SEQ", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "ChatSequence", sequenceName = "CHAT_SEQ", initialValue = 1000, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ChatSequence")
     @Column(name = "ID")
     private Long id;

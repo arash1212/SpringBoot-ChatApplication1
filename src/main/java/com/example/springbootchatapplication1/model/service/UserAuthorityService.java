@@ -4,7 +4,7 @@ import com.example.springbootchatapplication1.exception.CustomException;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityInput;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityOutput;
 import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
-import com.example.springbootchatapplication1.model.repository.UserAuthorityRepository;
+import com.example.springbootchatapplication1.model.repository.relational.UserAuthorityRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +55,7 @@ public class UserAuthorityService {
     @Transactional
     public Long save(UserAuthorityInput input) {
         UserAuthorityEntity entity = this.modelMapper.map(input, UserAuthorityEntity.class);
+        entity.setAuthority(input.getAuthority().toLowerCase());
 
         Optional<UserAuthorityEntity> optionalOldEntity = this.authorityRepository.getByName(input.getAuthority());
         if (!optionalOldEntity.isEmpty()) {
@@ -87,6 +88,10 @@ public class UserAuthorityService {
     /******************************************************************************************************************/
     public Optional<UserAuthorityEntity> getEntityById(Long id) {
         return this.authorityRepository.findById(id);
+    }
+
+    public Optional<UserAuthorityEntity> getEntityByName(String name) {
+        return this.authorityRepository.getByName(name);
     }
 
     public List<UserAuthorityEntity> getEntitiesById(List<Long> ids) {

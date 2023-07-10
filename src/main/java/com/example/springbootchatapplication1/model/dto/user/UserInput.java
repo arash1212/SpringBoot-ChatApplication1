@@ -13,6 +13,9 @@ public class UserInput {
     @Size(min = 4, max = 50)
     private String username;
     @NotEmpty
+    @Size(min = 4, max = 50)
+    private String email;
+    @NotEmpty
     @Size(min = 6, max = 50)
     private String password;
     @NotEmpty
