@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"/>
+    <title>جستجو برای چت</title>
+    <link th:href="@{/styles/style.css}" rel="stylesheet">
+    <link th:href="@{/styles/bootstrap.css}" rel="stylesheet">
+</head>
+<body dir="rtl">
+<div th:insert="~{fragments/headerFragment.html :: #nav-bar-div}"></div>
+
+<div id="chat-search-div">
+    <form id="chat-search-form">
+        <label for="chat-search-input">عنوان چت را وارد کنید : </label><br/>
+        <input type="text" id="chat-search-input" name="title" required/><br/><br/>
+    </form>
+
+    <table id="chat-search-result-table" class="table table-striped">
+        <thead>
+            <tr>
+                <th>شناسه</th>
+                <th>عنوان</th>
+                <th>تاریخ ایجاد</th>
+            </tr>
+        </thead>
+
+        <tbody id="chat-search-result-table-body">
+
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" th:src="@{/js/pub/chat/chats.js}"></script>
+</body>
+</html>

@@ -38,7 +38,8 @@ public class SecurityConfig {
                             "/", "/index",
                             "/pub/**", "/swagger-ui/**", "/api-docs", "/api-docs/**")
                     .permitAll()
-                    .requestMatchers("/user/**").hasAnyAuthority("admin", "user")
+                    .requestMatchers("/view/user/**", "/user/**").hasAnyAuthority("admin", "user")
+                    .requestMatchers("/view/adm/**", "/adm/**").hasAnyAuthority("admin")
                     .anyRequest().authenticated();
         });
 

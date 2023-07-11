@@ -14,9 +14,9 @@ public class ChatRepository extends GenericRepository<ChatEntity> {
 
     public Optional<ChatEntity> getByTitle(String title) {
         Map<String, Object> params = new HashMap<>();
-        params.put("title", title);
+        params.put("title", title.toLowerCase());
 
-        String query = "Select entity from CHAT AS entity left join fetch entity.messages where entity.title like :title ";
+        String query = "Select entity from CHAT AS entity left join fetch entity.messages where entity.title=:title ";
         List<ChatEntity> chatEntityList = super.selectQuery(query, params);
         return chatEntityList.size() > 0 ? Optional.of(chatEntityList.get(0)) : Optional.empty();
     }

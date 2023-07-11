@@ -1,4 +1,5 @@
 let messageProvidersTable = document.getElementById('message-providers-table');
+let messageProvidersTableBody = document.getElementById('message-providers-table-body');
 let createBtn = document.getElementById('create-btn');
 
 let GET_ALL = "/adm/message/provider/";
@@ -25,6 +26,11 @@ function refreshTable() {
 
 // ++++++++++++++++++++++++++++++FilleTableWithData+++++++++++++++++++++++++++++++++++++
 function fillTable(data) {
+    //
+    while (messageProvidersTableBody.firstChild) {
+        messageProvidersTableBody.removeChild(messageProvidersTableBody.lastChild);
+    }
+
     for (let i = 0; i < data.length; i++) {
         let tr = document.createElement('tr');
         for (let key in data[i]) {
@@ -44,7 +50,7 @@ function fillTable(data) {
         deleteButtonTd.appendChild(deleteButton);
 
         tr.appendChild(deleteButtonTd);
-        messageProvidersTable.appendChild(tr);
+        messageProvidersTableBody.appendChild(tr);
     }
 }
 

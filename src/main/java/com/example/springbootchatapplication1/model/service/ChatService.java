@@ -62,6 +62,7 @@ public class ChatService {
     public Long save(ChatInput input) {
         ChatEntity entity = this.modelMapper.map(input, ChatEntity.class);
         entity.setTitle(input.getTitle().toUpperCase());
+//        entity.setTitle(input.getTitle().toUpperCase());
 
         return this.chatRepository.save(entity);
     }

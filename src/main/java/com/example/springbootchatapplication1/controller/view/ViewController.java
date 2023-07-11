@@ -36,6 +36,11 @@ public class ViewController {
         return "/user/chat/chat";
     }
 
+    @GetMapping("/user/chat/chats/")
+    public String goToChatSearch() {
+        return "/user/chat/chats";
+    }
+
     /****************************************************admin*********************************************************/
     @GetMapping("/adm/")
     public String goToAdmIndex() {

@@ -1,4 +1,5 @@
 let authoritiesTable = document.getElementById('authorities-table');
+let authoritiesTableBody = document.getElementById('authorities-table-body');
 let createBtn = document.getElementById('create-btn');
 
 let GET_ALL = "/adm/user/authority/";
@@ -24,6 +25,11 @@ function refreshTable() {
 
 // ++++++++++++++++++++++++++++++FilleTableWithData+++++++++++++++++++++++++++++++++++++
 function fillTable(data) {
+    //
+    while (authoritiesTableBody.firstChild) {
+        authoritiesTableBody.removeChild(authoritiesTableBody.lastChild);
+    }
+
     for (let i = 0; i < data.length; i++) {
         let tr = document.createElement('tr');
         for (let key in data[i]) {
@@ -43,7 +49,7 @@ function fillTable(data) {
         deleteButtonTd.appendChild(deleteButton);
 
         tr.appendChild(deleteButtonTd);
-        authoritiesTable.appendChild(tr);
+        authoritiesTableBody.appendChild(tr);
     }
 }
 
