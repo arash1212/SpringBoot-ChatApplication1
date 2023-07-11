@@ -72,5 +72,8 @@ public class ViewController {
         return "/adm/messaging/create";
     }
 
-
+    @GetMapping("/adm/user/users")
+    public String goToAdmUsers() {
+        return "/adm/user/users";
+    }
 }
