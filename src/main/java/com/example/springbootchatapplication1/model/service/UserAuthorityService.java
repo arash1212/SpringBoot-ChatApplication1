@@ -1,6 +1,7 @@
 package com.example.springbootchatapplication1.model.service;
 
 import com.example.springbootchatapplication1.exception.CustomException;
+import com.example.springbootchatapplication1.model.dto.base.BaseFilter;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityInput;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityOutput;
 import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
@@ -37,8 +38,8 @@ public class UserAuthorityService {
         return this.modelMapper.map(optionalEntity.get(), UserAuthorityOutput.class);
     }
 
-    public List<UserAuthorityOutput> getAll() {
-        List<UserAuthorityEntity> userEntities = this.authorityRepository.findAll();
+    public List<UserAuthorityOutput> getAll(BaseFilter filter) {
+        List<UserAuthorityEntity> userEntities = this.authorityRepository.findAll(filter);
         return userEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, UserAuthorityOutput.class)).
                 collect(Collectors.toList());
     }

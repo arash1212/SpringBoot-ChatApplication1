@@ -3,10 +3,17 @@ let chatSearchForm = document.getElementById('chat-search-form');
 let chatSearchInput = document.getElementById('chat-search-input');
 let chatSearchTale = document.getElementById('chat-search-result-table');
 let chatSearchResultBody = document.getElementById('chat-search-result-table-body');
+
 // ++++++++++++++++++++++++++++++++++++GetChats++++++++++++++++++++++++++++++++++++++++++
 function getChats() {
     let response;
-    fetch('/pub/chat/', {
+
+    let title = chatSearchInput.value;
+    if (title === "" || title === null) {
+        return;
+    }
+    let queryParams = "?title=" + chatSearchInput.value;
+    fetch('/pub/chat/' + queryParams, {
         method: 'GET'
     }).then(resp => {
         response = resp.status;
@@ -19,7 +26,7 @@ function getChats() {
         });
 }
 
-chatSearchInput.onchange = (e) => {
+chatSearchInput.onkeyup = (e) => {
     getChats();
 }
 

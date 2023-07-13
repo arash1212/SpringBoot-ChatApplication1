@@ -1,5 +1,6 @@
 package com.example.springbootchatapplication1.controller.adm;
 
+import com.example.springbootchatapplication1.model.dto.base.BaseFilter;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityInput;
 import com.example.springbootchatapplication1.model.dto.userAuthority.UserAuthorityOutput;
 import com.example.springbootchatapplication1.model.service.UserAuthorityService;
@@ -16,7 +17,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @Tag(name = "Adm-UserAuthority")
@@ -36,8 +36,8 @@ public class AdmUserAuthorityController {
 
     @Operation(summary = "Get All userAuthorities", description = "Get All userAuthorities")
     @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserAuthorityOutput>> getAll(@AuthenticationPrincipal Authentication authentication) {
-        return new ResponseEntity<>(this.userAuthorityService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<UserAuthorityOutput>> getAll(@Valid @ModelAttribute BaseFilter filter, @AuthenticationPrincipal Authentication authentication) {
+        return new ResponseEntity<>(this.userAuthorityService.getAll(filter), HttpStatus.OK);
     }
 
     @Operation(summary = "Get userAuthority by name", description = "Get userAuthority by name")

@@ -1,9 +1,11 @@
 package com.example.springbootchatapplication1.controller.adm;
 
+import com.example.springbootchatapplication1.model.dto.base.BaseFilter;
 import com.example.springbootchatapplication1.model.dto.user.UserOutput;
 import com.example.springbootchatapplication1.model.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +15,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @Tag(name = "Adm-User")
@@ -26,8 +27,8 @@ public class AdmUserController {
 
     @Operation(summary = "Get All users", description = "Get All users")
     @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<UserOutput>> getAll(@AuthenticationPrincipal Authentication authentication) {
-        return new ResponseEntity<>(this.userService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<UserOutput>> getAll(@Valid @ModelAttribute BaseFilter filter, @AuthenticationPrincipal Authentication authentication) {
+        return new ResponseEntity<>(this.userService.getAll(filter), HttpStatus.OK);
     }
 
     @Operation(summary = "Assign authority to  user", description = "Assign authority to  user")

@@ -1,5 +1,6 @@
 package com.example.springbootchatapplication1.controller.adm;
 
+import com.example.springbootchatapplication1.model.dto.base.BaseFilter;
 import com.example.springbootchatapplication1.model.dto.messageProvider.MessageProviderInput;
 import com.example.springbootchatapplication1.model.dto.messageProvider.MessageProviderOutput;
 import com.example.springbootchatapplication1.model.service.MessageProviderService;
@@ -36,8 +37,8 @@ public class AdmMessageProviderController {
 
     @Operation(summary = "Get All messageProviders", description = "Get All messageProviders")
     @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<MessageProviderOutput>> getAll(@AuthenticationPrincipal Authentication authentication) {
-        return new ResponseEntity<>(this.messageProviderService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<MessageProviderOutput>> getAll(@Valid @ModelAttribute BaseFilter filter, @AuthenticationPrincipal Authentication authentication) {
+        return new ResponseEntity<>(this.messageProviderService.getAll(filter), HttpStatus.OK);
     }
 
     @Operation(summary = "Get messageProvider by name", description = "Get messageProvider by name")

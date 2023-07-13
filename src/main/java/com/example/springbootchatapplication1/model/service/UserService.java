@@ -2,6 +2,7 @@ package com.example.springbootchatapplication1.model.service;
 
 import com.example.springbootchatapplication1.exception.CustomException;
 import com.example.springbootchatapplication1.model.dto.Messaging.MessageInput;
+import com.example.springbootchatapplication1.model.dto.base.BaseFilter;
 import com.example.springbootchatapplication1.model.dto.user.*;
 import com.example.springbootchatapplication1.model.entity.redis.OtpRedisHash;
 import com.example.springbootchatapplication1.model.entity.relational.UserAuthorityEntity;
@@ -54,8 +55,8 @@ public class UserService {
         return this.modelMapper.map(optionalEntity.get(), UserOutput.class);
     }
 
-    public List<UserOutput> getAll() {
-        List<UserEntity> userEntities = this.userRepository.findAll();
+    public List<UserOutput> getAll(BaseFilter filter) {
+        List<UserEntity> userEntities = this.userRepository.findAll(filter);
         return userEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, UserOutput.class)).collect(Collectors.toList());
     }
 
@@ -105,7 +106,7 @@ public class UserService {
 
         //
         Optional<UserAuthorityEntity> userAuthority = this.authorityService.getEntityByName("user");
-        if(userAuthority.isEmpty()){
+        if (userAuthority.isEmpty()) {
             throw new CustomException(7);
         }
         userAuthority.get().getUsers().add(entity);

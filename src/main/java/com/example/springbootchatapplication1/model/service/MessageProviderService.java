@@ -1,6 +1,7 @@
 package com.example.springbootchatapplication1.model.service;
 
 import com.example.springbootchatapplication1.exception.CustomException;
+import com.example.springbootchatapplication1.model.dto.base.BaseFilter;
 import com.example.springbootchatapplication1.model.dto.messageProvider.MessageProviderInput;
 import com.example.springbootchatapplication1.model.dto.messageProvider.MessageProviderOutput;
 import com.example.springbootchatapplication1.model.entity.relational.MessageProviderEntity;
@@ -37,8 +38,8 @@ public class MessageProviderService {
         return this.modelMapper.map(optionalEntity.get(), MessageProviderOutput.class);
     }
 
-    public List<MessageProviderOutput> getAll() {
-        List<MessageProviderEntity> userEntities = this.messageProviderRepository.findAll();
+    public List<MessageProviderOutput> getAll(BaseFilter filter) {
+        List<MessageProviderEntity> userEntities = this.messageProviderRepository.findAll(filter);
         return userEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, MessageProviderOutput.class)).collect(Collectors.toList());
     }
 

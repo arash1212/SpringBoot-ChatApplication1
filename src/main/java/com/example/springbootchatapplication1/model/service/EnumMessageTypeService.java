@@ -1,6 +1,7 @@
 package com.example.springbootchatapplication1.model.service;
 
 import com.example.springbootchatapplication1.exception.CustomException;
+import com.example.springbootchatapplication1.model.dto.base.BaseFilter;
 import com.example.springbootchatapplication1.model.dto.messageType.EnumMessageTypeOutput;
 import com.example.springbootchatapplication1.model.entity.relational.enums.entity.EnumMessageTypeEntity;
 import com.example.springbootchatapplication1.model.repository.relational.EnumMessageTypeRepository;
@@ -33,8 +34,8 @@ public class EnumMessageTypeService {
         return this.modelMapper.map(optionalEntity.get(), EnumMessageTypeOutput.class);
     }
 
-    public List<EnumMessageTypeOutput> getAll() {
-        List<EnumMessageTypeEntity> messageTypeEntities = this.enumMessageTypeRepository.findAll();
+    public List<EnumMessageTypeOutput> getAll(BaseFilter filter) {
+        List<EnumMessageTypeEntity> messageTypeEntities = this.enumMessageTypeRepository.findAll(filter);
         return messageTypeEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, EnumMessageTypeOutput.class)).
                 collect(Collectors.toList());
     }

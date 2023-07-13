@@ -1,9 +1,11 @@
 package com.example.springbootchatapplication1.model.repository.relational;
 
+import com.example.springbootchatapplication1.model.dto.base.BaseFilter;
 import com.example.springbootchatapplication1.model.entity.interfaces.IEntity;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -63,11 +65,12 @@ public abstract class GenericRepository<T extends IEntity> {
         return Optional.of(query.getSingleResult());
     }
 
-    public List<T> findAll() {
+    public List<T> findAll(BaseFilter filter) {
         CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(this.getDomainClass());
         Root<T> root = criteriaQuery.from(this.getDomainClass());
-        criteriaQuery.select(root);
+        //Filters
+        criteriaQuery.select(root).where(this.getPredicates(filter, criteriaBuilder, root));
 
         TypedQuery<T> query = this.entityManager.createQuery(criteriaQuery);
         return query.getResultList();
@@ -99,7 +102,7 @@ public abstract class GenericRepository<T extends IEntity> {
 
         for (Map.Entry<String, Object> entry : queryParams.entrySet()) {
             if (entry.getValue() instanceof String) {
-                predicates.add(criteriaBuilder.like(root.get(entry.getKey()), String.valueOf(entry.getValue())));
+                predicates.add(criteriaBuilder.like(root.get(entry.getKey()), "%" + entry.getValue() + "%"));
             } else {
                 predicates.add(criteriaBuilder.equal(root.get(entry.getKey()), String.valueOf(entry.getValue())));
             }
@@ -107,4 +110,31 @@ public abstract class GenericRepository<T extends IEntity> {
 
         return predicates.toArray(new Predicate[0]);
     }
+
+    //TODO
+    private Predicate[] getPredicates(BaseFilter filter, CriteriaBuilder criteriaBuilder, Root<T> root) {
+        try {
+            Field[] fields = filter.getClass().getDeclaredFields();
+            List<Predicate> predicates = new ArrayList<>(fields.length);
+
+            //predicates
+            for (Field field : fields) {
+                field.setAccessible(true);
+                if (field.get(filter) == null)
+                    continue;
+
+                if (field.get(filter) instanceof String) {
+                    predicates.add(criteriaBuilder.like(root.get(field.getName()), "%" + field.get(filter) + "%"));
+                } else {
+                    predicates.add(criteriaBuilder.equal(root.get(field.getName()), String.valueOf(field.get(filter))));
+                }
+            }
+
+            return predicates.toArray(new Predicate[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Predicate[0];
+        }
+    }
 }
+
