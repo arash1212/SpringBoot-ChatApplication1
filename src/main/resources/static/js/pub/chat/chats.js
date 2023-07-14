@@ -35,6 +35,7 @@ function fillTable(data) {
     while (chatSearchResultBody.firstChild) {
         chatSearchResultBody.removeChild(chatSearchResultBody.lastChild);
     }
+    let title = "";
 
     let tr = document.createElement('tr');
     for (let i = 0; i < data.length; i++) {
@@ -43,12 +44,21 @@ function fillTable(data) {
             if (j === 0) {
                 td.innerText = data[i]['id'];
             } else if (j === 1) {
-                td.innerText = data[i]['title'];
+                title = data[i]['title'];
+                td.innerText = title;
             } else if (j === 2) {
                 td.innerText = data[i]['createdAt'];
             }
             tr.appendChild(td);
         }
+
+        let goToButton = document.createElement('button');
+        goToButton.innerText = "انتخاب"
+        goToButton.className = "btn btn-success";
+        goToButton.onclick = () => {
+            window.location = "/view/user/chat/chat/" + title;
+        }
+        tr.appendChild(goToButton);
     }
     chatSearchResultBody.appendChild(tr);
 }

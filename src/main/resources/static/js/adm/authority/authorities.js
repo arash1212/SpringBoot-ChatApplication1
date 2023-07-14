@@ -32,11 +32,21 @@ function fillTable(data) {
 
     for (let i = 0; i < data.length; i++) {
         let tr = document.createElement('tr');
-        for (let key in data[i]) {
+        // for (let key in data[i]) {
+        for (let j = 0; j <= 3; j++) {
             let td = document.createElement('td');
-            td.innerText = data[i][key];
+            if (j === 0) {
+                td.innerText = data[i]['id'];
+            } else if (j === 1) {
+                td.innerText = data[i]['authority'];
+            } else if (j === 2) {
+                td.innerText = data[i]['createdAt'];
+            } else if (j === 3) {
+                td.innerText = data[i]['lastUpdateAt'];
+            }
             tr.appendChild(td);
         }
+        // }
         //buttons
         let deleteButtonTd = document.createElement('td');
 
