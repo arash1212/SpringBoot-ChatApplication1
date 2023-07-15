@@ -35,12 +35,12 @@ public class MessageProviderService {
             throw new CustomException(1);
         }
 
-        return this.modelMapper.map(optionalEntity.get(), MessageProviderOutput.class);
+        return new MessageProviderOutput(optionalEntity.get());
     }
 
     public List<MessageProviderOutput> getAll(BaseFilter filter) {
         List<MessageProviderEntity> userEntities = this.messageProviderRepository.findAll(filter);
-        return userEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, MessageProviderOutput.class)).collect(Collectors.toList());
+        return userEntities.stream().filter(Objects::nonNull).map(MessageProviderOutput::new).collect(Collectors.toList());
     }
 
     public MessageProviderOutput getByTitle(String title) {
@@ -49,7 +49,7 @@ public class MessageProviderService {
             throw new CustomException(1);
         }
 
-        return this.modelMapper.map(optionalEntity.get(), MessageProviderOutput.class);
+        return new MessageProviderOutput(optionalEntity.get());
     }
 
     @Transactional
@@ -71,7 +71,7 @@ public class MessageProviderService {
         }
 
         this.modelMapper.map(input, optionalEntity.get());
-        return this.modelMapper.map(this.messageProviderRepository.update(optionalEntity.get()), MessageProviderOutput.class);
+        return new MessageProviderOutput(this.messageProviderRepository.update(optionalEntity.get()));
     }
 
     @Transactional

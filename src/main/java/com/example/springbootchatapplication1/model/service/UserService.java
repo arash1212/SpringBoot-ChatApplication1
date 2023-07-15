@@ -52,12 +52,12 @@ public class UserService {
             throw new CustomException(1);
         }
 
-        return this.modelMapper.map(optionalEntity.get(), UserOutput.class);
+        return new UserOutput(optionalEntity.get());
     }
 
     public List<UserOutput> getAll(BaseFilter filter) {
         List<UserEntity> userEntities = this.userRepository.findAll(filter);
-        return userEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, UserOutput.class)).collect(Collectors.toList());
+        return userEntities.stream().filter(Objects::nonNull).map(UserOutput::new).collect(Collectors.toList());
     }
 
     public UserOutput getByUsername(String username) {
@@ -66,7 +66,7 @@ public class UserService {
             throw new CustomException(1);
         }
 
-        return this.modelMapper.map(optionalEntity.get(), UserOutput.class);
+        return new UserOutput(optionalEntity.get());
     }
 
     @Transactional(rollbackFor = CustomException.class)
@@ -124,7 +124,7 @@ public class UserService {
         }
 
         this.modelMapper.map(input, optionalEntity.get());
-        return this.modelMapper.map(this.userRepository.update(optionalEntity.get()), UserOutput.class);
+        return new UserOutput(this.userRepository.update(optionalEntity.get()));
     }
 
     @Transactional
@@ -147,7 +147,7 @@ public class UserService {
         optionalUserEntity.get().setAuthorities(new HashSet<>(authorityEntities));
         authorityEntities.forEach(x -> x.getUsers().add(optionalUserEntity.get()));
 
-        return this.modelMapper.map(this.userRepository.update(optionalUserEntity.get()), UserOutput.class);
+        return new UserOutput(this.userRepository.update(optionalUserEntity.get()));
     }
 
     public UserLoginOut login(UserLoginInput input) {

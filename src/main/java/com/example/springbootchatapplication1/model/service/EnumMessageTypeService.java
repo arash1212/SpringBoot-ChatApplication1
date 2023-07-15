@@ -31,12 +31,12 @@ public class EnumMessageTypeService {
             throw new CustomException(1);
         }
 
-        return this.modelMapper.map(optionalEntity.get(), EnumMessageTypeOutput.class);
+        return new EnumMessageTypeOutput(optionalEntity.get());
     }
 
     public List<EnumMessageTypeOutput> getAll(BaseFilter filter) {
         List<EnumMessageTypeEntity> messageTypeEntities = this.enumMessageTypeRepository.findAll(filter);
-        return messageTypeEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, EnumMessageTypeOutput.class)).
+        return messageTypeEntities.stream().filter(Objects::nonNull).map(EnumMessageTypeOutput::new).
                 collect(Collectors.toList());
     }
 

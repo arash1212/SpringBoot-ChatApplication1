@@ -37,12 +37,12 @@ public class ChatMessageService {
             throw new CustomException(1);
         }
 
-        return this.modelMapper.map(optionalEntity.get(), ChatMessageOutput.class);
+        return new ChatMessageOutput(optionalEntity.get());
     }
 
     public List<ChatMessageOutput> getAll(BaseFilter filter) {
         List<ChatMessageEntity> userEntities = this.chatMessageRepository.findAll(filter);
-        return userEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, ChatMessageOutput.class)).
+        return userEntities.stream().filter(Objects::nonNull).map(ChatMessageOutput::new).
                 collect(Collectors.toList());
     }
 
@@ -53,7 +53,7 @@ public class ChatMessageService {
         ChatMessageEntity newEntity = this.chatMessageRepository.saveAndGetEntity(entity);
         UserEntity creator = this.userService.getEntity(newEntity.getCreatorId());
         newEntity.setCreator(creator);
-        return this.modelMapper.map(newEntity, ChatMessageOutput.class);
+        return new ChatMessageOutput(newEntity);
     }
 
     @Transactional
@@ -64,7 +64,7 @@ public class ChatMessageService {
         }
 
         this.modelMapper.map(input, optionalEntity.get());
-        return this.modelMapper.map(this.chatMessageRepository.update(optionalEntity.get()), ChatMessageOutput.class);
+        return new ChatMessageOutput(this.chatMessageRepository.update(optionalEntity.get()));
     }
 
     @Transactional

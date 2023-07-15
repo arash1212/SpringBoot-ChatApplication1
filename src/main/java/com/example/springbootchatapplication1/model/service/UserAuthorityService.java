@@ -35,12 +35,12 @@ public class UserAuthorityService {
             throw new CustomException(1);
         }
 
-        return this.modelMapper.map(optionalEntity.get(), UserAuthorityOutput.class);
+        return new UserAuthorityOutput(optionalEntity.get());
     }
 
     public List<UserAuthorityOutput> getAll(BaseFilter filter) {
         List<UserAuthorityEntity> userEntities = this.authorityRepository.findAll(filter);
-        return userEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, UserAuthorityOutput.class)).
+        return userEntities.stream().filter(Objects::nonNull).map(UserAuthorityOutput::new).
                 collect(Collectors.toList());
     }
 
@@ -50,7 +50,7 @@ public class UserAuthorityService {
             throw new CustomException(1);
         }
 
-        return this.modelMapper.map(optionalEntity.get(), UserAuthorityOutput.class);
+        return new UserAuthorityOutput(optionalEntity.get());
     }
 
     @Transactional
@@ -73,7 +73,7 @@ public class UserAuthorityService {
         }
 
         this.modelMapper.map(input, optionalEntity.get());
-        return this.modelMapper.map(this.authorityRepository.update(optionalEntity.get()), UserAuthorityOutput.class);
+        return new UserAuthorityOutput(this.authorityRepository.update(optionalEntity.get()));
     }
 
     @Transactional

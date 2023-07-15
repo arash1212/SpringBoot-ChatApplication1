@@ -4,7 +4,6 @@ import com.example.springbootchatapplication1.exception.CustomException;
 import com.example.springbootchatapplication1.model.dto.chat.ChatFilter;
 import com.example.springbootchatapplication1.model.dto.chat.ChatInput;
 import com.example.springbootchatapplication1.model.dto.chat.ChatOutput;
-import com.example.springbootchatapplication1.model.dto.chatMessage.ChatMessageOutput;
 import com.example.springbootchatapplication1.model.entity.relational.ChatEntity;
 import com.example.springbootchatapplication1.model.repository.relational.ChatRepository;
 import org.modelmapper.ModelMapper;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,9 +33,7 @@ public class ChatService {
             throw new CustomException(1);
         }
 
-        ChatOutput output = this.modelMapper.map(optionalEntity.get(), ChatOutput.class);
-        output.setMessages(output.getMessages().stream().sorted(Comparator.comparing(ChatMessageOutput::getId)).collect(Collectors.toList()));
-        return output;
+        return new ChatOutput(optionalEntity.get());
     }
 
     public ChatOutput getByTitle(String title) {
@@ -47,15 +43,13 @@ public class ChatService {
             throw new CustomException(1);
         }
 
-        ChatOutput output = this.modelMapper.map(optionalEntity.get(), ChatOutput.class);
-        output.setMessages(output.getMessages().stream().sorted(Comparator.comparing(ChatMessageOutput::getId)).collect(Collectors.toList()));
-        return output;
+        return new ChatOutput(optionalEntity.get());
     }
 
     public List<ChatOutput> getAll(ChatFilter filter) {
         List<ChatEntity> chatEntities = this.chatRepository.findAll(filter);
 
-        return chatEntities.stream().filter(Objects::nonNull).map(x -> this.modelMapper.map(x, ChatOutput.class)).
+        return chatEntities.stream().filter(Objects::nonNull).map(ChatOutput::new).
                 collect(Collectors.toList());
     }
 
@@ -76,7 +70,7 @@ public class ChatService {
         }
 
         this.modelMapper.map(input, optionalEntity.get());
-        return this.modelMapper.map(this.chatRepository.update(optionalEntity.get()), ChatOutput.class);
+        return new ChatOutput(this.chatRepository.update(optionalEntity.get()));
     }
 
     @Transactional
